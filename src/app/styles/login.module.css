@@ -1,0 +1,77 @@
+.mainContainer {
+  background-color: rgb(0, 0, 0, 0.7);
+  padding: 30px 80px 50px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: fit-content;
+  border-radius: 4px;
+  width: 400px;
+}
+.flexBox {
+  display: flex;
+  justify-content: center;
+  margin-top: 7%;
+  margin-top: 60px;
+}
+.signInTitle {
+  font-size: 2.3rem;
+  font-weight: 600;
+}
+.signInBtn {
+  background-color: var(--red);
+  text-transform: capitalize;
+  padding: 9px;
+  font-size: 1.1rem;
+  margin-top: 30px;
+}
+.signInBtn:hover {
+  background-color: var(--red);
+}
+.newToText {
+  color: var(--grey);
+  font-weight: 100;
+  font-size: 1.1rem;
+}
+.signUpText {
+  color: var(--white);
+  cursor: pointer;
+  text-decoration: none;
+}
+.signUpText:hover {
+  text-decoration: underline;
+}
+.captchaText {
+  color: var(--grey);
+  font-weight: 100;
+  font-size: 0.8rem;
+  width: 300px;
+}
+.learnMoreText {
+  color: var(--blue);
+  cursor: pointer;
+  text-decoration: none;
+}
+.learnMoreText:hover {
+  text-decoration: underline;
+}
+
+.errorMessage {
+  color: var(--yellow);
+  font-size: 16px;
+  margin-top: -12px;
+  margin-left: 4px;
+}
+.signUpErr {
+  background-color: var(--yellow);
+  color: var(--black);
+  border-radius: 6px;
+  gap: 12px;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 950px) {
+  .mainContainer {
+    padding: 30px 40px 60px 40px;
+  }
+}

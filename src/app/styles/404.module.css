@@ -1,0 +1,55 @@
+.mainWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.flexItem {
+  width: 50%;
+}
+.contentWrapper {
+  text-align: center;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.errCodeText {
+  margin: 20px 0px;
+  font-weight: 100;
+  font-size: 25px;
+  padding: 10px 12px;
+  border-left: 2px solid var(--red);
+}
+
+.homeBtn {
+  background-color: var(--red);
+  text-transform: capitalize;
+  font-size: 20px;
+  padding: 8px 20px;
+  margin-top: 30px;
+}
+.homeBtn:hover {
+  background-color: var(--red);
+}
+.notFoundImage {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0px auto;
+}
+@media (max-width: 950px) {
+  .flexItem {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .mainWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
