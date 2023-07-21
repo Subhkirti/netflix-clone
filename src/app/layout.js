@@ -14,6 +14,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="JFowyBHy2lNJYSuIVtTrjGU8saR9yC8XArQLZYcCUDo"
+        />
+      </head>
       <body className={signika.className}>{children}</body>
     </html>
   );
