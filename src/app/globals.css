@@ -55,7 +55,7 @@ body {
   position: relative;
   width: 100%;
   height: 700px;
-  background-image: url("http://surl.li/iibfn");
+  background-image: url("https://assets.nflxext.com/ffe/siteui/vlv3/d7af077c-af5a-4055-8f9a-740a43588583/95bae10c-9773-4447-af4e-612a244231bd/IN-hi-20230717-popsignuptwoweeks-perspective_alpha_website_large.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -106,11 +106,11 @@ body {
     text-align: center;
   }
   .title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     text-align: center;
   }
   .subTitle {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     text-align: center;
   }
 }
