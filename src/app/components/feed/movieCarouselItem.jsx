@@ -1,14 +1,34 @@
-import React from 'react'
-import { Add, PlayCircleFilled, ThumbDownOffAlt, ThumbUpOffAlt } from '@mui/icons-material'
+import React, { useState } from 'react'
+import { Add, Check, PlayCircleFilled, ThumbDownOffAlt, ThumbUpOffAlt } from '@mui/icons-material'
 import { Box, Typography } from '@mui/material'
 import Image from 'next/image'
 import { ellipSize } from '@/app/utils/commonUtil'
 import { useMobile, useTablet } from '@/app/hooks/mediaHooks';
 import classes from '../../styles/feed.module.css'
+import { addToWatchList } from '@/app/services/movieService'
+import { getCurrentUser } from '@/app/services/authService'
 
-function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselIndex, showDescriptionCard,width,height }) {
+function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselIndex, showDescriptionCard, width, height }) {
     const isTablet = useTablet()
     const isMobile = useMobile()
+    const user = getCurrentUser()
+    const [watchListIndex, setWatchListIndex] = useState(-1)
+
+    async function handleWatchListBtn(thumbnail, index, addTolist) {
+        const reqBody = {
+            userId: user && user?.userId,
+            watchList: thumbnail
+        }
+        if (addTolist) {
+            const data = await addToWatchList(reqBody)
+            if (data.status === 'SUCCESS') {
+                setWatchListIndex(index)
+            }
+        } else {
+
+        }
+
+    }
     return (
         <div
             onMouseOver={() => setCurrentIndex && setCurrentIndex(currentCarouselIndex)}
@@ -19,7 +39,8 @@ function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselI
             {!isMobile && showDescriptionCard && <Box className={classes.descriptionBox}>
                 <Box className={classes.descriptionIcons}>
                     <PlayCircleFilled className={classes.playIcon} />
-                    <Add className={classes.icon} />
+                    {watchListIndex === index ? <Check className={classes.icon} onClick={() => handleWatchListBtn(thumbnail, index, false)} /> : <Add className={classes.icon} onClick={() => handleWatchListBtn(thumbnail, index, true)} />}
+
                     <ThumbUpOffAlt className={classes.icon} />
                     <ThumbDownOffAlt className={classes.icon} />
                 </Box>

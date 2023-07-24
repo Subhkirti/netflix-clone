@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 
 const schema = new mongoose.Schema(
   {
-    emailOrMobile: { type: String, required: true },
-    password: { type: String, required: true },
+    emailOrMobile: { type: String },
+    password: { type: String },
     loginSource: { type: String },
     token: { type: String, unique: true },
     userId: { type: String, unique: true },
+    watchList: { type: Array },
   },
   { timestamps: true }
 );
