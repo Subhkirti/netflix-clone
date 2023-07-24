@@ -5,7 +5,7 @@ import MovieCarousel from './movieCarousel';
 import { Box } from '@mui/material'
 import { useTablet } from '@/app/hooks/mediaHooks';
 import { fetchMovies } from '@/app/services/feedService';
-import ThumbnailMediaPlayer from './thumbnailMediaPlayer';
+import ThumbnailMedia from './thumbnailMedia';
 
 function Feed() {
   const tabsData = [{ title: "Home" }, { title: "TV Shows" }, { title: "Movies" }, { title: "Originals" }, { title: "Recently Added" }, { title: "My List" }]
@@ -35,7 +35,7 @@ function Feed() {
   return (
     <Box px={isTablet ? 2 : 9} >
       <Header tabsData={tabsData} transparent={isScrolled ? false : true} />
-      <ThumbnailMediaPlayer />
+      <ThumbnailMedia />
       {movies && movies?.length > 0 && movies.map((movie, i) => {
         return movie?.categoryTitle && <MovieCarousel key={i} categoryTitle={movie.categoryTitle} thumbnails={movie?.movies} currentCarouselIndex={i} />
       })}

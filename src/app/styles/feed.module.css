@@ -20,12 +20,12 @@
 }
 
 .icons {
-  color:var(--white);
+  color: var(--white);
   cursor: pointer;
 }
 .scrollIcon {
   height: 170px;
-  color:var(--white);
+  color: var(--white);
   font-size: 50px;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
 }
 .leftScrollIcon {
   height: 170px;
-  color:var(--white);
+  color: var(--white);
   font-size: 50px;
   display: flex;
   align-items: center;
@@ -137,32 +137,32 @@
   font-weight: 500;
 }
 .bannerPlayIcon {
-  background-color:var(--white);
-  color:var(--black);
-  text-transform:capitalize;
-  padding:2px 18px;
-  font-size:16px;
+  background-color: var(--white);
+  color: var(--black);
+  text-transform: capitalize;
+  padding: 2px 18px;
+  font-size: 16px;
 }
 .infoIcon {
-  background-color:rgb(95, 93, 93);
-  color:var(--white);
-  text-transform:capitalize;
-  margin-left:10px;
-  padding:4px 18px;
-  font-size:16px;
+  background-color: rgb(95, 93, 93);
+  color: var(--white);
+  text-transform: capitalize;
+  margin-left: 10px;
+  padding: 4px 18px;
+  font-size: 16px;
 }
 .bannerPlayIcon:hover {
-  background-color:white;
-  color:var(--black);
+  background-color: white;
+  color: var(--black);
 }
 .infoIcon:hover {
-  background-color:var(--grey);
-  color:var(--white);
+  background-color: var(--grey);
+  color: var(--white);
 }
 .bannerCarousel {
   position: relative;
   top: 500px;
-  right:0px;
+  right: 0px;
 }
 
 /* Media-Queries */
@@ -284,27 +284,47 @@
 @media (max-width: 500px) {
   .thumbnailImage,
   .thumbnailItem {
-    width: 100px !important;
+    width: 130px !important;
     height: 90px;
   }
   .thumbnailItem:hover {
     height: auto;
   }
   .thumbnailItem:hover .thumbnailImage {
-    transform: scale(1.8, 1.2);
+    transform: scale(1.6,1.3);
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 450px) {
+  .carouselTitle {
+    font-size: 22px;;
+  }
   .bannerBox {
-    height: 700px;
+    height: 300px;
+  }
+  .shadowBox {
+    z-index: -1;
+    height: 400px;
+    background: linear-gradient(0deg, black, transparent, transparent);
+  }
+  .bannerTitle {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .bannerSubTitle {
+    font-size: 16px;
+    width: 100%;
+    margin-top: 15px;
   }
   .bannerDescription {
-    width: 90%;
-    margin-top: 50px;
+    width: 100%;
+    position: static;
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 0px;
   }
   .thumbnailImage,
   .thumbnailItem {
-    width: 80px !important;
+    width: 100px !important;
     height: 95px;
   }
   .thumbnailItem:hover {

@@ -6,11 +6,13 @@ import { ChevronRight, ChevronLeft, } from '@mui/icons-material'
 import { motion } from "framer-motion"
 import MovieCarouselItem from './movieCarouselItem';
 import { responsive } from '@/app/utils/constants';
+import { useMobile } from '@/app/hooks/mediaHooks';
 
 function MovieCarousel({
     categoryTitle, thumbnails,
     currentCarouselIndex
 }) {
+    const isMobile = useMobile()
     const [currentIndex, setCurrentIndex] = useState(-1)
     const movie_api = `https://api.themoviedb.org/3/movie/447365?api_key=4f5ca790025ea4baf6f9d72988810577&language=en-US&append_to_response=videos`
 
@@ -26,9 +28,9 @@ function MovieCarousel({
     }
 
     return (
-        <Box position="relative" zIndex={currentIndex === currentCarouselIndex ? 9 : 1} py={0.4} height={250} >
-            <Typography variant='h4' fontWeight={600}>{categoryTitle}</Typography>
-            <Box mt={1}>
+        <Box position="relative" zIndex={currentIndex === currentCarouselIndex ? 9 : 1} py={0.4} height={isMobile ? 170 : 250} >
+            <Typography variant='h4' className={classes.carouselTitle}  fontWeight={600}>{categoryTitle}</Typography>
+            <Box>
                 <Carousel
                     slidesToSlide={4}
                     removeArrowOnDeviceType={["tablet", "mobile"]} customRightArrow={<CustomRightArrow />}
