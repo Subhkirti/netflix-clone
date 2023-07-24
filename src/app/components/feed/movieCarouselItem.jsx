@@ -6,23 +6,31 @@ import { ellipSize } from '@/app/utils/commonUtil'
 import { useMobile, useTablet } from '@/app/hooks/mediaHooks';
 import classes from '../../styles/feed.module.css'
 import { addToWatchList } from '@/app/services/movieService'
-import { getCurrentUser } from '@/app/services/authService'
+import { getCurrentUser, setCurrentUser } from '@/app/services/authService'
 
-function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselIndex, showDescriptionCard, width, height }) {
+function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselIndex, showDescriptionCard, width, height, categoryId }) {
     const isTablet = useTablet()
     const isMobile = useMobile()
     const user = getCurrentUser()
     const [watchListIndex, setWatchListIndex] = useState(-1)
 
-    async function handleWatchListBtn(thumbnail, index, addTolist) {
+    async function handleWatchListBtn(thumbnail, index, addToList) {
         const reqBody = {
             userId: user && user?.userId,
-            watchList: thumbnail
+            watchList: thumbnail,
+            categoryId: categoryId
         }
-        if (addTolist) {
+        if (addToList) {
             const data = await addToWatchList(reqBody)
             if (data.status === 'SUCCESS') {
                 setWatchListIndex(index)
+                const newUser = data.updatedUser
+                const updatedUser = {
+                    ...newUser, loginSuccessfully
+                        :
+                        true
+                }
+                setCurrentUser(updatedUser);
             }
         } else {
 
@@ -39,7 +47,7 @@ function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselI
             {!isMobile && showDescriptionCard && <Box className={classes.descriptionBox}>
                 <Box className={classes.descriptionIcons}>
                     <PlayCircleFilled className={classes.playIcon} />
-                    {watchListIndex === index ? <Check className={classes.icon} onClick={() => handleWatchListBtn(thumbnail, index, false)} /> : <Add className={classes.icon} onClick={() => handleWatchListBtn(thumbnail, index, true)} />}
+                    {watchListIndex === index || thumbnail?.addedToWatchList ? <Check className={classes.icon} onClick={() => handleWatchListBtn(thumbnail, index, false)} /> : <Add className={classes.icon} onClick={() => handleWatchListBtn(thumbnail, index, true)} />}
 
                     <ThumbUpOffAlt className={classes.icon} />
                     <ThumbDownOffAlt className={classes.icon} />

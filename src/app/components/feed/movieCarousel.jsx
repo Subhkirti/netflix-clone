@@ -10,11 +10,12 @@ import { useMobile } from '@/app/hooks/mediaHooks';
 
 function MovieCarousel({
     categoryTitle, thumbnails,
-    currentCarouselIndex
+    currentCarouselIndex,
+    categoryId
 }) {
     const isMobile = useMobile()
     const [currentIndex, setCurrentIndex] = useState(-1)
-    const movie_api = `https://api.themoviedb.org/3/movie/447365?api_key=4f5ca790025ea4baf6f9d72988810577&language=en-US&append_to_response=videos`
+
 
     const CustomLeftArrow = ({ onClick, ...rest }) => {
         return <div onClick={() => onClick()} className={classes.leftScrollIcon}>
@@ -29,7 +30,7 @@ function MovieCarousel({
 
     return (
         <Box position="relative" zIndex={currentIndex === currentCarouselIndex ? 9 : 1} py={0.4} height={isMobile ? 170 : 250} >
-            <Typography variant='h4' className={classes.carouselTitle}  fontWeight={600}>{categoryTitle}</Typography>
+            <Typography variant='h4' className={classes.carouselTitle} fontWeight={600}>{categoryTitle}</Typography>
             <Box>
                 <Carousel
                     slidesToSlide={4}
@@ -44,7 +45,7 @@ function MovieCarousel({
                                 scale: [1, 1.2, 1],
                             }}
                         >
-                            <MovieCarouselItem thumbnail={thumbnail} index={index} setCurrentIndex={setCurrentIndex} currentCarouselIndex={currentCarouselIndex} showDescriptionCard={true} width={250} height={150} />
+                            <MovieCarouselItem thumbnail={thumbnail} index={index} setCurrentIndex={setCurrentIndex} currentCarouselIndex={currentCarouselIndex} showDescriptionCard={true} width={250} height={150} categoryId={categoryId} />
                         </motion.div>
                     })}
                 </Carousel>

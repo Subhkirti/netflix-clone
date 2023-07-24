@@ -4,31 +4,21 @@ import dynamic from "next/dynamic";
 import MovieCarousel from './movieCarousel';
 import { Box } from '@mui/material'
 import { useTablet } from '@/app/hooks/mediaHooks';
-import { fetchMovies } from '@/app/services/feedService';
 import ThumbnailMedia from './thumbnailMedia';
+import { getCurrentUser } from '@/app/services/authService';
 
 function Feed() {
   const tabsData = [{ title: "Home" }, { title: "TV Shows" }, { title: "Movies" }, { title: "Originals" }, { title: "Recently Added" }, { title: "My List" }]
   const isTablet = useTablet()
-  const [movies, setMovies] = useState([])
+  const user = getCurrentUser()
   const [isScrolled, setScrolled] = useState(false)
+  const movies = user?.movies
 
   useEffect(() => {
-    async function fetchMoviesData() {
-      try {
-        const res = await fetchMovies();
-        res.movies_data && setMovies(res.movies_data)
-      }
-      catch {
-      }
-    }
-    movies?.length === 0 && fetchMoviesData();
-
     const handleScroll = () => {
       setScrolled(window.scrollY <= 10 ? false : true)
     }
     window.addEventListener('scroll', handleScroll)
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,7 +27,7 @@ function Feed() {
       <Header tabsData={tabsData} transparent={isScrolled ? false : true} />
       <ThumbnailMedia />
       {movies && movies?.length > 0 && movies.map((movie, i) => {
-        return movie?.categoryTitle && <MovieCarousel key={i} categoryTitle={movie.categoryTitle} thumbnails={movie?.movies} currentCarouselIndex={i} />
+        return movie?.categoryTitle && <MovieCarousel key={i} categoryTitle={movie.categoryTitle} thumbnails={movie?.movies} currentCarouselIndex={i} categoryId={movie.categoryId}/>
       })}
     </Box>
   )

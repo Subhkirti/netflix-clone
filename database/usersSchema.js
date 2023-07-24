@@ -8,6 +8,7 @@ const schema = new mongoose.Schema(
     token: { type: String, unique: true },
     userId: { type: String, unique: true },
     watchList: { type: Array },
+    movies: { type: Array },
   },
   { timestamps: true }
 );

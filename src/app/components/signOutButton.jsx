@@ -13,6 +13,7 @@ function SignOutButton() {
     function handleSignOut() {
         if (typeof window !== "undefined") {
             localStorage.clear();
+            window.location.reload();
         }
     }
 

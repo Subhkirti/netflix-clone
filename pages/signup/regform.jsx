@@ -11,6 +11,7 @@ import { CancelOutlined, Visibility, VisibilityOff, Warning } from '@mui/icons-m
 import { isValidEmail } from '@/app/utils/commonUtil';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { fetchMovies } from '@/app/services/feedService';
 
 function Regform() {
     const user = getCurrentUser();
@@ -54,30 +55,39 @@ function Regform() {
         }
         else {
             setValue({ ...value, passwordErrormessage: "", emailErrorMessage: "" })
-
-            const res = await signUpAuth({
-                email: String(value.email),
-                loginSource: "email",
-                password: value.password
-            });
-
-            if (res.status === "SUCCESS") {
-                if (res.isUserAlreadyExist) {
-                    setValue({ ...value, showSignInModal: true })
-                } else {
-                    const updatedUser = { ...res.userObject, loginSuccessfully: true }
-                    setCurrentUser({ ...user, ...updatedUser });
-                    router.push('/')
-                }
-            }
-            else {
-                if (res.code === 11000) {
-                    setValue({ ...value, showSignInModal: true })
+            
+            try {
+                const movies = await fetchMovies();
+                console.log('movies:', movies)
+                const res = await signUpAuth({
+                    email: String(value.email),
+                    loginSource: "email",
+                    password: value.password,
+                    movies: movies.movies_data
+                });
+                if (res.status === "SUCCESS") {
+                    if (res.isUserAlreadyExist) {
+                        setValue({ ...value, showSignInModal: true })
+                    } else {
+                        const updatedUser = { ...res.userObject, loginSuccessfully: true }
+                        setCurrentUser({ ...user, ...updatedUser });
+                        router.push('/')
+                    }
                 }
                 else {
-                    setValue({ ...value, passwordErrormessage: res.error_message })
+                    if (res.code === 11000) {
+                        setValue({ ...value, showSignInModal: true })
+                    }
+                    else {
+                        setValue({ ...value, passwordErrormessage: res.error_message })
+                    }
                 }
             }
+            catch {
+                //snackbar
+            }
+
+
         }
 
     }

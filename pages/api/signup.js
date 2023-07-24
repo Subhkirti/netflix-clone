@@ -3,13 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import connection from "../../database/connection";
 import UsersSchema from "../../database/usersSchema";
 
-// need to edit it
-
 export default function signup(req, res) {
+  // For new user
   var jwt = require("jsonwebtoken");
   if (req.body) {
     const body = req.body && JSON.parse(req.body);
-    const { email, loginSource, password } = body;
+    const { email, loginSource, password, movies } = body;
     const token = jwt.sign(body, tokenKey);
     connection();
 
@@ -19,6 +18,7 @@ export default function signup(req, res) {
       loginSource: loginSource,
       token: token,
       userId: uuidv4(),
+      movies,
     };
     async function fetchUsers() {
       UsersSchema.findOne({ emailOrMobile: email })

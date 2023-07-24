@@ -4,6 +4,7 @@ import connection from "../../database/connection";
 import UsersSchema from "../../database/usersSchema";
 
 export default function login(req, res) {
+   // For already existed user
   var jwt = require("jsonwebtoken");
   if (req.body) {
     const body = req.body && JSON.parse(req.body);
