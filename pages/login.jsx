@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import Header from '../src/app/components/header';
 import Footer from '@/app/components/footer';
@@ -24,6 +24,12 @@ function Login() {
     const globalLanguage = getLanguage();
     const languageText = language[globalLanguage || "en"];
     const router = useRouter()
+
+    useEffect(()=>{
+        if (user?.loginSuccessfully){
+            router.push("/")
+        }
+    },[user])
 
     function handleOnChange(type, e) {
         const inputValue = e.target.value

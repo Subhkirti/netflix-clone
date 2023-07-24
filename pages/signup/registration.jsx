@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '@/app/components/header'
 import { Box, Typography, Button } from "@mui/material"
 import Footer from '@/app/components/footer'
 import Image from 'next/image'
 import dynamic from 'next/dynamic';
-import { getLanguage } from '@/app/services/authService'
+import { getLanguage,getCurrentUser } from '@/app/services/authService'
 import language from '@/app/languages/langIndex'
 import classes from "@/app/styles/signUp.module.css"
 import { useRouter } from 'next/router'
@@ -13,6 +13,14 @@ function Registration() {
     const globalLanguage = getLanguage();
     const languageText = language[globalLanguage || "en"];
     const router = useRouter()
+        const user=getCurrentUser()
+
+    useEffect(()=>{
+        if (user?.loginSuccessfully){
+            router.push("/")
+        }
+    },[user])
+
     return (
         <React.Fragment>
             <Header signUp={true} />

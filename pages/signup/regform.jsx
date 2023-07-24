@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from "@/app/styles/signUp.module.css";
 import Header from '@/app/components/header';
 import { Box, Typography, Button, } from '@mui/material';
@@ -20,6 +20,13 @@ function Regform() {
     const languageText = language[globalLanguage || "en"];
     const validEmail = isValidEmail(value?.email);
     const router = useRouter()
+
+    useEffect(() => {
+        if (user?.loginSuccessfully) {
+            router.push("/")
+        }
+    }, [user])
+
     function handleOnChange(type, e) {
         const inputValue = e.target.value
         if (e?.key === "Enter") {
