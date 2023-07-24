@@ -19,6 +19,7 @@ function CommonTextField({ helperText, label, Icon, handleOnChange, value, maxLe
 }
 const CssTextField = styled(TextField)({
   flexWrap: 'wrap',
+  width:'100%',
   backgroundColor: ((props) => props.whitebg === "true" ? "transparent" : "#333"),
   border: '1px solid black',
   borderRadius: "6px",

@@ -95,7 +95,7 @@ function Regform() {
                     <Typography className={classes.settingAccount}>{languageText?.CREATE_A_PASSWORD} </Typography>
                     <Typography className={classes.netflixPersonalised}>{languageText?.JUST_FEW_MORE_PAPERWORK} </Typography>
 
-                    <Box className="displayFlexColumn" gap={1} mt={3}>
+                    <Box className="displayFlexColumn" width="100%" gap={1} mt={3}>
                         {/* Email textfield */}
                         <CommonTextField whiteBG={true} value={value.email}
                             type="text"

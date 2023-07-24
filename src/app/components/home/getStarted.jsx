@@ -53,7 +53,7 @@ function GetStarted() {
       <Typography className='subTitle' mb={2} align='center'>{languageText?.READY_TO_WATCH}</Typography>
       <Box className={classes.inputWrapper} >
         <Box className={classes.alignColumn}>
-          <CssTextField validemail={validEmail.toString()} errmsg={errMsg} style={{ width: isMobile ? "250px" : "500px" }} value={email} label={languageText.EMAIL_ADDRESS} onChange={handleEmail} />
+          <CssTextField validemail={validEmail.toString()} errmsg={errMsg} style={{ width: isMobile ? "300px" : "500px" }} value={email} label={languageText.EMAIL_ADDRESS} onChange={handleEmail} />
           {errMsg &&
             <Typography className={classes.errMessage}><CancelOutlined fontSize="10" />{errMsg}</Typography>}
         </Box>

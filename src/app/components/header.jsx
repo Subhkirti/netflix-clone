@@ -53,7 +53,7 @@ function Header({ transparent, tabsData, signUp }) {
                 </Box>
                 {tabsData && user?.loginSuccessfully && <SignOutButton />}
 
-                {signUp && <Link href="/login"><Typography className="removeLinkStyle" variant='h6' color="black">{languageText.SIGN_IN}</Typography></Link>}
+                {signUp && <Link href="/login" style={{ color: "black" }}><Typography className="removeLinkStyle" variant='h6'>{languageText.SIGN_IN}</Typography></Link>}
             </AppBar>
 
             <Box mb={10}></Box>

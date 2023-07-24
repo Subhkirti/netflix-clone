@@ -167,5 +167,8 @@
     .errMessage {
       width: 250px;
     }
+    .startedBtn {
+      width: 300px;
+    }
   }
   
