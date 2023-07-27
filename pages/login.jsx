@@ -13,6 +13,7 @@ import Link from 'next/link';
 import { hasOnlyDigits, isValidEmail } from '../src/app/utils/commonUtil';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useRouter } from 'next/navigation'
+import { fetchMovies } from '@/app/services/feedService';
 
 function Login() {
     const [hideLeanMore, setHideLearnMore] = useState(false)
@@ -25,11 +26,11 @@ function Login() {
     const languageText = language[globalLanguage || "en"];
     const router = useRouter()
 
-    useEffect(()=>{
-        if (user?.loginSuccessfully){
+    useEffect(() => {
+        if (user?.loginSuccessfully) {
             router.push("/")
         }
-    },[user])
+    }, [user])
 
     function handleOnChange(type, e) {
         const inputValue = e.target.value
@@ -66,10 +67,12 @@ function Login() {
             }
 
             else {
+                const movies = await fetchMovies();
                 const res = await loginAuth({
                     email: String(value.email),
                     loginSource: valueCategory,
-                    password: value.password
+                    password: value.password,
+                    movies: movies.movies_data,
                 });
 
                 if (res.status === "SUCCESS") {

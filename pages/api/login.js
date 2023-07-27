@@ -8,7 +8,7 @@ export default function login(req, res) {
   var jwt = require("jsonwebtoken");
   if (req.body) {
     const body = req.body && JSON.parse(req.body);
-    const { email, loginSource, password } = body;
+    const { email, loginSource, password,movies } = body;
     const token = jwt.sign(body, tokenKey);
 
     const response = {
@@ -17,6 +17,7 @@ export default function login(req, res) {
       loginSource: loginSource,
       token: token,
       userId: uuidv4(),
+      movies
     };
     
     async function fetchUsers() {
