@@ -1,32 +1,24 @@
-import { tokenKey } from "@/app/utils/constants";
-import { v4 as uuidv4 } from "uuid";
 import connection from "../../database/connection";
 import UsersSchema from "../../database/usersSchema";
 
 export default function login(req, res) {
-   // For already existed user
-  var jwt = require("jsonwebtoken");
+  // For already existed user
   if (req.body) {
     const body = req.body && JSON.parse(req.body);
-    const { email, loginSource, password,movies } = body;
-    const token = jwt.sign(body, tokenKey);
+    const { email, loginSource } = body;
 
     const response = {
       emailOrMobile: email,
-      password: password,
       loginSource: loginSource,
-      token: token,
-      userId: uuidv4(),
-      movies
     };
-    
+
     async function fetchUsers() {
       connection();
       UsersSchema.findOne({ emailOrMobile: email })
         .then((docs) => {
           res.status(200).json({
             status: "SUCCESS",
-            userObject: { ...response },
+            userObject: response,
             isUserAlreadyExist: docs ? true : false,
             alreadyExistedUser: docs,
           });

@@ -78,7 +78,7 @@ function Login() {
                 if (res.status === "SUCCESS") {
                     if (res.isUserAlreadyExist) {
                         if (res.alreadyExistedUser.password === value.password && res.alreadyExistedUser.emailOrMobile === value.email) {
-                            const updatedUser = { ...res.userObject, loginSuccessfully: true }
+                            const updatedUser = { ...res.userObject, ...res.alreadyExistedUser, loginSuccessfully: true }
                             setCurrentUser({ ...user, ...updatedUser });
                             router.push('/')
                         }

@@ -25,14 +25,10 @@ function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselI
             if (data.status === 'SUCCESS') {
                 setWatchListIndex(index)
                 const newUser = data.updatedUser
-                const updatedUser = {
-                    ...newUser, loginSuccessfully
-                        :
-                        true
-                }
-                setCurrentUser(updatedUser);
+                setCurrentUser({ ...newUser, loginSuccessfully: true });
             }
         } else {
+            // snackbar message
 
         }
 
