@@ -9,7 +9,7 @@ export default async function fetch_watchlist(req, res) {
     const docs = await UsersSchema.findOne({ userId: body.userId });
     res.status(200).json({
       status: "SUCCESS",
-      movies_data: docs,
+      data: docs,
     });
   } catch (err) {
     console.log("err:", err);

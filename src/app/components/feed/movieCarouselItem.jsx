@@ -6,7 +6,7 @@ import { ellipSize } from '@/app/utils/commonUtil'
 import { useMobile, useTablet } from '@/app/hooks/mediaHooks';
 import classes from '../../styles/feed.module.css'
 import { addToWatchList } from '@/app/services/movieService'
-import { getCurrentUser, setCurrentUser } from '@/app/services/authService'
+import { getCurrentUser } from '@/app/services/authService'
 
 function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselIndex, showDescriptionCard, width, height, categoryId }) {
     const isTablet = useTablet()
@@ -24,8 +24,6 @@ function MovieCarouselItem({ thumbnail, index, setCurrentIndex, currentCarouselI
             const data = await addToWatchList(reqBody)
             if (data.status === 'SUCCESS') {
                 setWatchListIndex(index)
-                const newUser = data.updatedUser
-                setCurrentUser({ ...newUser, loginSuccessfully: true });
             }
         } else {
             // snackbar message

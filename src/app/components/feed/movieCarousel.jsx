@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Typography } from '@mui/material'
 import classes from '../../styles/feed.module.css'
 import Carousel from "react-multi-carousel";
@@ -7,6 +7,8 @@ import { motion } from "framer-motion"
 import MovieCarouselItem from './movieCarouselItem';
 import { responsive } from '@/app/utils/constants';
 import { useMobile } from '@/app/hooks/mediaHooks';
+import { getCurrentUser, setCurrentUser } from '@/app/services/authService';
+import { fetchWatchList } from '@/app/services/movieService';
 
 function MovieCarousel({
     categoryTitle, thumbnails,
@@ -15,7 +17,15 @@ function MovieCarousel({
 }) {
     const isMobile = useMobile()
     const [currentIndex, setCurrentIndex] = useState(-1)
+    const user = getCurrentUser()
 
+    useEffect(() => {
+        async function getWatchList() {
+            const res = await fetchWatchList({ userId: user?.userId })
+            res.data && setCurrentUser({ ...res.data, loginSuccessfully: true });
+        }
+        getWatchList()
+    }, [])
 
     const CustomLeftArrow = ({ onClick, ...rest }) => {
         return <div onClick={() => onClick()} className={classes.leftScrollIcon}>
