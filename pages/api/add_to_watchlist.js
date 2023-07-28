@@ -11,10 +11,7 @@ export default async function add_movie_to_watch_list(req, res) {
       if (userData) {
         const updatedMovie = [];
         for (var movieCategory of userData?.movies) {
-          if (
-            movieCategory.categoryId === body.categoryId &&
-            movieCategory?.movies?.length > 0
-          ) {
+          if (movieCategory?.movies?.length > 0) {
             const movies = [];
             for (var movie of movieCategory.movies) {
               if (movie.id === body.watchList.id) {
