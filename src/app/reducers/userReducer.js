@@ -1,18 +1,15 @@
 import actionTypes from "../utils/actionTypes";
 
-const initialState = [];
+const initialState = {};
 
-export const users = (state = initialState, action) => {
+export const user = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_USERS:
+    case actionTypes.SET_USER:
       return {
         ...state,
         ...action.payload,
       };
-    case actionTypes.GET_USERS:
-      return state;
-
     default:
-      return state;
+      return Object.keys(state).length === 0 ? false : state;
   }
 };

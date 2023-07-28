@@ -1,5 +1,6 @@
 const languageKey = "appLanguage";
-const userKey = "user";
+const isUserLoggedInKey = "isUserLoggedIn";
+const userKey="user";
 
 function setLanguage(value) {
   if (typeof window !== "undefined") {
@@ -13,13 +14,27 @@ function getLanguage() {
   }
   return "en";
 }
-function setCurrentUser(data) {
+function setIsUserLoggedIn(data) {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(isUserLoggedInKey, data);
+  }
+}
+
+function getIsUserLoggedIn() {
+  if (typeof window !== "undefined") {
+    const userStatus = localStorage.getItem(isUserLoggedInKey);
+    return userStatus || false;
+  } else {
+    return false;
+  }
+}
+function setLocalUser(data) {
   if (typeof window !== "undefined") {
     localStorage.setItem(userKey, JSON.stringify(data));
   }
 }
 
-function getCurrentUser() {
+function getLocalUser() {
   if (typeof window !== "undefined") {
     try {
       const userStr = localStorage.getItem(userKey);
@@ -33,7 +48,7 @@ function getCurrentUser() {
 }
 
 async function loginAuth(reqBody) {
-    // For already existed user
+  // For already existed user
   const data = await fetch("/api/login", {
     method: "POST",
     body: JSON.stringify(reqBody),
@@ -58,4 +73,26 @@ async function signUpAuth(reqBody) {
   return data;
 }
 
-export { setLanguage, getLanguage, loginAuth, setCurrentUser, getCurrentUser,signUpAuth };
+async function fetchUserFromDB(reqBody) {
+  const data = await fetch("/api/fetch_user", {
+    method: "POST",
+    body: JSON.stringify(reqBody),
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      return response;
+    });
+  return data;
+}
+
+export {
+  setLanguage,
+  getLanguage,
+  loginAuth,
+  setIsUserLoggedIn,
+  getIsUserLoggedIn,
+  signUpAuth,
+  getLocalUser,
+  setLocalUser,
+  fetchUserFromDB
+};

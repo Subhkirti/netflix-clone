@@ -5,12 +5,13 @@ import MovieCarousel from './movieCarousel';
 import { Box } from '@mui/material'
 import { useTablet } from '@/app/hooks/mediaHooks';
 import ThumbnailMedia from './thumbnailMedia';
-import { getCurrentUser } from '@/app/services/authService';
+import { useSelector } from 'react-redux';
+import { getLocalUser } from '@/app/services/authService';
 
 function Feed() {
   const tabsData = [{ title: "Home" }, { title: "TV Shows" }, { title: "Movies" }, { title: "Originals" }, { title: "Recently Added" }, { title: "My List" }]
   const isTablet = useTablet()
-  const user = getCurrentUser()
+  const user = useSelector((state) => state.user) || getLocalUser();
   const [isScrolled, setScrolled] = useState(false)
   const movies = user?.movies
 
@@ -27,7 +28,7 @@ function Feed() {
       <Header tabsData={tabsData} transparent={isScrolled ? false : true} />
       <ThumbnailMedia />
       {movies && movies?.length > 0 && movies.map((movie, i) => {
-        return movie?.categoryTitle && <MovieCarousel key={i} categoryTitle={movie.categoryTitle} thumbnails={movie?.movies} currentCarouselIndex={i} categoryId={movie.categoryId}/>
+        return movie?.categoryTitle && <MovieCarousel key={i} categoryTitle={movie.categoryTitle} thumbnails={movie?.movies} currentCarouselIndex={i} categoryId={movie.categoryId} />
       })}
     </Box>
   )

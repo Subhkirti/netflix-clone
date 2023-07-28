@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Typography, Box, Button, TextField, } from '@mui/material'
-import { getLanguage, getCurrentUser, setCurrentUser } from '../../services/authService';
+import { getLanguage, getLocalUser, setLocalUser } from '../../services/authService';
 import language from '../../languages/langIndex';
 import classes from "../../styles/home.module.css";
 import { CancelOutlined, KeyboardArrowRight } from '@mui/icons-material';
@@ -9,16 +9,19 @@ import dynamic from "next/dynamic";
 import { isValidEmail } from '@/app/utils/commonUtil';
 import { useMobile } from '@/app/hooks/mediaHooks';
 import { useRouter } from 'next/navigation'
+import { setCurrentUser } from '@/app/actions/userAction';
+import { useDispatch, useSelector } from 'react-redux';
 
 function GetStarted() {
   const globalLanguage = getLanguage()
   const languageText = language[globalLanguage || 'en'];
-  const user = getCurrentUser()
+  const user = useSelector((state) => state.user) || getLocalUser();
   const [email, setEmail] = useState((user && user?.emailOrMobile) || '')
   const [errMsg, setErrMsg] = useState("")
   const validEmail = isValidEmail(email);
   const isMobile = useMobile()
   const router = useRouter()
+  const dispatch = useDispatch()
 
   function handleEmail(e) {
     const value = e?.target?.value
@@ -33,12 +36,12 @@ function GetStarted() {
   }
 
   function handleOnSubmit() {
-
     if (validEmail) {
       setErrMsg("")
       const userRequest = { emailOrMobile: email };
-      user ? setCurrentUser({ ...user, ...userRequest }) : setCurrentUser(userRequest);
-      router.push('/signup/registration')
+      user ? dispatch(setCurrentUser({ ...user, ...userRequest })) : dispatch(setCurrentUser(userRequest));
+      setLocalUser(userRequest)
+      router.push('/signup/registration');
     }
     else if (!email) {
       setErrMsg(languageText?.EMAIL_IS_REQUIRED)
@@ -47,6 +50,8 @@ function GetStarted() {
       setErrMsg(languageText?.ONLY_EMAIL_VALIDATION_TEXT)
     }
   }
+
+
 
   return (
     <React.Fragment>

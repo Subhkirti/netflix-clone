@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Add,
   Check,
@@ -12,7 +12,9 @@ import { ellipSize } from "@/app/utils/commonUtil";
 import { useMobile, useTablet } from "@/app/hooks/mediaHooks";
 import classes from "../../styles/feed.module.css";
 import { addToWatchList } from "@/app/services/movieService";
-import { getCurrentUser } from "@/app/services/authService";
+import { setSnackbarMessage } from "@/app/actions/snackBarAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getLocalUser } from "@/app/services/authService";
 
 function MovieCarouselItem({
   thumbnail,
@@ -27,7 +29,8 @@ function MovieCarouselItem({
 }) {
   const isTablet = useTablet();
   const isMobile = useMobile();
-  const user = getCurrentUser();
+  const user = useSelector((state) => state.user) || getLocalUser();
+  const dispatch = useDispatch()
 
   async function handleWatchListBtn(thumbnail, movieId, addToList) {
     const reqBody = {
@@ -40,7 +43,9 @@ function MovieCarouselItem({
         setWatchListIndex(movieId);
       }
     } else {
-      // snackbar message
+      dispatch(
+        setSnackbarMessage(res?.error_message || "Try again after sometime.")
+      );
     }
   }
 
@@ -55,9 +60,8 @@ function MovieCarouselItem({
     >
       <Image
         className={classes.thumbnailImage}
-        src={`https://image.tmdb.org/t/p/w500${
-          thumbnail.backdrop_path || thumbnail.poster_path
-        }`}
+        src={`https://image.tmdb.org/t/p/w500${thumbnail.backdrop_path || thumbnail.poster_path
+          }`}
         alt=""
         width={width}
         height={height}
@@ -81,7 +85,6 @@ function MovieCarouselItem({
                 }
               />
             )}
-            {thumbnail?.id}
             <ThumbUpOffAlt className={classes.icon} />
             <ThumbDownOffAlt className={classes.icon} />
           </Box>

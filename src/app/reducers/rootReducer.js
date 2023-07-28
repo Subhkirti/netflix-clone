@@ -1,6 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { users } from "./userReducer";
+import { user } from "./userReducer";
+import { snackBar } from "./snackBarReducer";
 
 export default combineReducers({
-  users,
+  user,
+  snackBar,
 });

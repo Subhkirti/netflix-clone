@@ -1,15 +1,9 @@
 import actionTypes from "../utils/actionTypes";
 
-function fetchUsers() {
+function setCurrentUser(usersData) {
   return {
-    type: actionTypes.GET_USERS,
-  };
-}
-
-function setUsers(usersData) {
-  return {
-    type: actionTypes.SET_USERS,
+    type: actionTypes.SET_USER,
     payload: usersData,
   };
 }
-export { fetchUsers, setUsers };
+export { setCurrentUser };

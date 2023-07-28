@@ -7,8 +7,10 @@ import { motion } from "framer-motion";
 import MovieCarouselItem from "./movieCarouselItem";
 import { responsive } from "@/app/utils/constants";
 import { useMobile } from "@/app/hooks/mediaHooks";
-import { getCurrentUser, setCurrentUser } from "@/app/services/authService";
 import { fetchWatchList } from "@/app/services/movieService";
+import { setCurrentUser } from "@/app/actions/userAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getLocalUser } from "@/app/services/authService";
 
 function MovieCarousel({
   categoryTitle,
@@ -18,13 +20,13 @@ function MovieCarousel({
   const isMobile = useMobile();
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [watchListIndex, setWatchListIndex] = useState(-1);
-
-  const user = getCurrentUser();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user) || getLocalUser();
 
   useEffect(() => {
     async function getWatchList() {
       const res = await fetchWatchList({ userId: user?.userId });
-      res.data && setCurrentUser({ ...res.data, loginSuccessfully: true });
+      res.data && dispatch(setCurrentUser({ ...res.data }));
     }
     getWatchList();
   }, []);

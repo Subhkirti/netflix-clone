@@ -5,20 +5,22 @@ import Image from 'next/image'
 import dynamic from "next/dynamic";
 import Link from 'next/link';
 import { useMobile, useTablet } from '../hooks/mediaHooks';
-import { getLanguage, getCurrentUser } from '../services/authService';
+import { getLanguage, getIsUserLoggedIn, getLocalUser } from '../services/authService';
 import language from '../languages/langIndex';
 import { usePathname } from 'next/navigation';
 import SignOutButton from './signOutButton';
 import { Menu } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 function Header({ transparent, tabsData, signUp }) {
     const isMobile = useMobile()
-    const user = getCurrentUser()
+    const user = useSelector((state) => state.user) || getLocalUser();
     const isTablet = useTablet()
     const globalLanguage = getLanguage()
     const languageText = language[globalLanguage || 'en'];
     const location = usePathname()
-    const isFeed = location === "/" && user?.loginSuccessfully
+    const isUserLoggedIn = getIsUserLoggedIn()
+    const isFeed = location === "/" && isUserLoggedIn
     return (
         <React.Fragment>
             <AppBar style={{
@@ -51,7 +53,7 @@ function Header({ transparent, tabsData, signUp }) {
                     </Box>}
 
                 </Box>
-                {tabsData && user?.loginSuccessfully && <SignOutButton />}
+                {tabsData && isUserLoggedIn && <SignOutButton />}
 
                 {signUp && <Link href="/login" style={{ color: "black" }}><Typography className="removeLinkStyle" variant='h6'>{languageText.SIGN_IN}</Typography></Link>}
             </AppBar>
