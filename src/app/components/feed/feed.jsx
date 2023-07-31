@@ -23,6 +23,7 @@ function Feed() {
   const [isScrolled, setScrolled] = useState(false);
   const [banners, setBanners] = useState([])
   const [homeBanner, setHomeBanner] = useState("")
+  const [watchListMovieId, setWatchListMovieId] = useState(-1)
   const movies = user?.movies;
 
   useEffect(() => {
@@ -55,7 +56,8 @@ function Feed() {
               categoryTitle={movie.categoryTitle}
               thumbnails={movie?.movies}
               currentCarouselIndex={i}
-              categoryId={movie.categoryId}
+              setWatchListMovieId={setWatchListMovieId}
+              watchListMovieId={watchListMovieId}
             />
           )
         );

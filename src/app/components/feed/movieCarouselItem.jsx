@@ -24,8 +24,8 @@ function MovieCarouselItem({
   showDescriptionCard,
   width,
   height,
-  watchListIndex,
-  setWatchListIndex,
+  watchListMovieId,
+  setWatchListMovieId
 }) {
   const isTablet = useTablet();
   const isMobile = useMobile();
@@ -40,12 +40,15 @@ function MovieCarouselItem({
     if (addToList) {
       const data = await addToWatchList(reqBody);
       if (data.status === "SUCCESS") {
-        setWatchListIndex(movieId);
+        setWatchListMovieId(movieId)
+      }
+      else {
+        dispatch(
+          setSnackbarMessage(res?.error_message || "Try again after sometime.")
+        );
       }
     } else {
-      dispatch(
-        setSnackbarMessage(res?.error_message || "Try again after sometime.")
-      );
+
     }
   }
 
@@ -70,7 +73,7 @@ function MovieCarouselItem({
         <Box className={classes.descriptionBox}>
           <Box className={classes.descriptionIcons}>
             <PlayCircleFilled className={classes.playIcon} />
-            {watchListIndex === thumbnail?.id || thumbnail?.addedToWatchList ? (
+            {watchListMovieId === thumbnail?.id || thumbnail?.addedToWatchList ? (
               <Check
                 className={classes.icon}
                 onClick={() =>
