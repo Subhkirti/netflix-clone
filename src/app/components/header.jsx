@@ -5,16 +5,14 @@ import Image from 'next/image'
 import dynamic from "next/dynamic";
 import Link from 'next/link';
 import { useMobile, useTablet } from '../hooks/mediaHooks';
-import { getLanguage, getIsUserLoggedIn, getLocalUser } from '../services/authService';
+import { getLanguage, getIsUserLoggedIn } from '../services/authService';
 import language from '../languages/langIndex';
 import { usePathname } from 'next/navigation';
 import SignOutButton from './signOutButton';
 import { Menu } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
 
 function Header({ transparent, tabsData, signUp }) {
     const isMobile = useMobile()
-    const user = useSelector((state) => state.user) || getLocalUser();
     const isTablet = useTablet()
     const globalLanguage = getLanguage()
     const languageText = language[globalLanguage || 'en'];
@@ -48,7 +46,7 @@ function Header({ transparent, tabsData, signUp }) {
 
                     {!isTablet && tabsData && <Box className='displayFlex' width="600px">
                         {tabsData.map((tab, i) => {
-                            return <Link href="/" style={{ color: 'white' }} key={i} className='removeLinkStyle'><Typography >{tab.title}</Typography></Link>
+                            return <Link href={tab.url} style={{ color: 'white' }} key={i} className='removeLinkStyle'><Typography >{tab.title}</Typography></Link>
                         })}
                     </Box>}
 

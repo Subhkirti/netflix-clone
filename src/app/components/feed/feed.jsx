@@ -11,12 +11,12 @@ import Loader from "@/app/loader";
 
 function Feed() {
   const tabsData = [
-    { title: "Home" },
-    { title: "TV Shows" },
-    { title: "Movies" },
-    { title: "Originals" },
-    { title: "Recently Added" },
-    { title: "My List" },
+    { title: "Home", url: "/" },
+    { title: "TV Shows", url: "/tv_shows" },
+    { title: "Movies", url: "/movies" },
+    { title: "Originals", url: "/originals" },
+    { title: "Recently Added", url: "/recenlty_added" },
+    { title: "My List", url: "/mylist" },
   ];
   const isTablet = useTablet();
   const user = useSelector((state) => state.user) || getLocalUser();

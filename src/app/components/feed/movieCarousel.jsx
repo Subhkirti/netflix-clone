@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import classes from "../../styles/feed.module.css";
 import Carousel from "react-multi-carousel";
@@ -7,10 +7,6 @@ import { motion } from "framer-motion";
 import MovieCarouselItem from "./movieCarouselItem";
 import { responsive } from "@/app/utils/constants";
 import { useMobile } from "@/app/hooks/mediaHooks";
-import { fetchWatchList } from "@/app/services/movieService";
-import { setCurrentUser } from "@/app/actions/userAction";
-import { useDispatch, useSelector } from "react-redux";
-import { getLocalUser } from "@/app/services/authService";
 
 function MovieCarousel({
   categoryTitle,
@@ -21,16 +17,6 @@ function MovieCarousel({
 }) {
   const isMobile = useMobile();
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user) || getLocalUser();
-
-  useEffect(() => {
-    async function getWatchList() {
-      const res = await fetchWatchList({ userId: user?.userId });
-      res.data && dispatch(setCurrentUser({ ...res.data }));
-    }
-    getWatchList();
-  }, []);
 
   const CustomLeftArrow = ({ onClick, ...rest }) => {
     return (
