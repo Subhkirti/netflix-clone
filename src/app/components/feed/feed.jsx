@@ -1,36 +1,66 @@
-import React, { useEffect, useState } from 'react'
-import Header from '@/app/components/header'
+import React, { useEffect, useState } from "react";
+import Header from "@/app/components/header";
 import dynamic from "next/dynamic";
-import MovieCarousel from './movieCarousel';
-import { Box } from '@mui/material'
-import { useTablet } from '@/app/hooks/mediaHooks';
-import ThumbnailMedia from './thumbnailMedia';
-import { useSelector } from 'react-redux';
-import { getLocalUser } from '@/app/services/authService';
+import MovieCarousel from "./movieCarousel";
+import { Box } from "@mui/material";
+import { useTablet } from "@/app/hooks/mediaHooks";
+import ThumbnailMedia from "./thumbnailMedia";
+import { useSelector } from "react-redux";
+import { getLocalUser } from "@/app/services/authService";
+import Loader from "@/app/loader";
 
 function Feed() {
-  const tabsData = [{ title: "Home" }, { title: "TV Shows" }, { title: "Movies" }, { title: "Originals" }, { title: "Recently Added" }, { title: "My List" }]
-  const isTablet = useTablet()
+  const tabsData = [
+    { title: "Home" },
+    { title: "TV Shows" },
+    { title: "Movies" },
+    { title: "Originals" },
+    { title: "Recently Added" },
+    { title: "My List" },
+  ];
+  const isTablet = useTablet();
   const user = useSelector((state) => state.user) || getLocalUser();
-  const [isScrolled, setScrolled] = useState(false)
-  const movies = user?.movies
+  const [isScrolled, setScrolled] = useState(false);
+  const [banners, setBanners] = useState([])
+  const [homeBanner, setHomeBanner] = useState("")
+  const movies = user?.movies;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY <= 10 ? false : true)
+    if (banners.length > 0) {
+      const randomIndex = parseInt(Math.random() * (banners.length - 1));
+      setHomeBanner(banners[randomIndex])
     }
-    window.addEventListener('scroll', handleScroll)
+
+    if (movies && movies?.length > 0) {
+      movies.map((element) =>
+        element.isBannerMovies && banners?.length === 0 && setBanners(element?.movies));
+    }
+
+    const handleScroll = () => {
+      setScrolled(window.scrollY <= 10 ? false : true);
+    };
+    window.addEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [banners]);
 
   return (
-    <Box px={isTablet ? 2 : 9} >
+    movies && movies?.length > 0 && homeBanner ? <Box px={isTablet ? 2 : 9}>
       <Header tabsData={tabsData} transparent={isScrolled ? false : true} />
-      <ThumbnailMedia />
+      <ThumbnailMedia homeBanner={homeBanner} />
       {movies && movies?.length > 0 && movies.map((movie, i) => {
-        return movie?.categoryTitle && <MovieCarousel key={i} categoryTitle={movie.categoryTitle} thumbnails={movie?.movies} currentCarouselIndex={i} categoryId={movie.categoryId} />
+        return (
+          movie?.categoryTitle && (
+            <MovieCarousel
+              key={i}
+              categoryTitle={movie.categoryTitle}
+              thumbnails={movie?.movies}
+              currentCarouselIndex={i}
+              categoryId={movie.categoryId}
+            />
+          )
+        );
       })}
-    </Box>
-  )
+    </Box> : <Loader />
+  );
 }
 export default dynamic(() => Promise.resolve(Feed), { ssr: false });

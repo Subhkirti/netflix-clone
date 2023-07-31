@@ -4,7 +4,7 @@ import Home from "./components/home/home";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import HomeCarousel from "./components/home/homeCarousel";
 import { Suspense } from "react";
-import Loading from "./loading";
+import Loading from "./loader";
 import dynamic from "next/dynamic";
 import { ThemeProvider } from "@mui/material";
 import theme from "./styles/theme";
@@ -19,11 +19,12 @@ import SnackBar from "./components/snackBar";
 import store from "./store/configureStore";
 import { setCurrentUser } from "./actions/userAction";
 import { setSnackbarMessage } from "./actions/snackBarAction";
+import Loader from "./loader";
 
 function App() {
   return (
     <Provider store={store}>
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Loader />}>
         <Main />
       </Suspense>
     </Provider>
