@@ -95,7 +95,6 @@ function Regform() {
 
             try {
                 const movies = await fetchMovies();
-                console.log("movies:", movies);
                 const res = await signUpAuth({
                     email: String(value.email),
                     loginSource: "email",

@@ -12,7 +12,6 @@ export default async function fetch_watchlist(req, res) {
       data: docs,
     });
   } catch (err) {
-    console.log("err:", err);
     res.status(500).json({
       status: "FAILED",
       message: "An error occurred while fetching movies",

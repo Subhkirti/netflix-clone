@@ -10,7 +10,6 @@ export default async function movies(req, res) {
       movies_data: docs,
     });
   } catch (err) {
-    console.log("err:", err);
     res.status(500).json({
       status: "FAILED",
       message: "An error occurred while fetching movies",

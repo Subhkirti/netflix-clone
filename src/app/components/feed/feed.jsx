@@ -21,20 +21,27 @@ function Feed() {
   const isTablet = useTablet();
   const user = useSelector((state) => state.user) || getLocalUser();
   const [isScrolled, setScrolled] = useState(false);
-  const [banners, setBanners] = useState([])
-  const [homeBanner, setHomeBanner] = useState("")
-  const [watchListMovieId, setWatchListMovieId] = useState(-1)
+  const [banners, setBanners] = useState([]);
+  const [homeBanner, setHomeBanner] = useState("");
+  const [watchListMovieIds, setWatchListMovieIds] = useState({
+    addedIds: [],
+    removedIds: [],
+  });
   const movies = user?.movies;
 
   useEffect(() => {
     if (banners.length > 0) {
       const randomIndex = parseInt(Math.random() * (banners.length - 1));
-      setHomeBanner(banners[randomIndex])
+      setHomeBanner(banners[randomIndex]);
     }
 
     if (movies && movies?.length > 0) {
-      movies.map((element) =>
-        element.isBannerMovies && banners?.length === 0 && setBanners(element?.movies));
+      movies.map(
+        (element) =>
+          element.isBannerMovies &&
+          banners?.length === 0 &&
+          setBanners(element?.movies)
+      );
     }
 
     const handleScroll = () => {
@@ -42,27 +49,30 @@ function Feed() {
     };
     window.addEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [banners]);
-
-  return (
-    movies && movies?.length > 0 && homeBanner ? <Box px={isTablet ? 2 : 9}>
+  }, [banners, movies]);
+  return movies && movies?.length > 0 && homeBanner ? (
+    <Box px={isTablet ? 2 : 9}>
       <Header tabsData={tabsData} transparent={isScrolled ? false : true} />
       <ThumbnailMedia homeBanner={homeBanner} />
-      {movies && movies?.length > 0 && movies.map((movie, i) => {
-        return (
-          movie?.categoryTitle && (
-            <MovieCarousel
-              key={i}
-              categoryTitle={movie.categoryTitle}
-              thumbnails={movie?.movies}
-              currentCarouselIndex={i}
-              setWatchListMovieId={setWatchListMovieId}
-              watchListMovieId={watchListMovieId}
-            />
-          )
-        );
-      })}
-    </Box> : <Loader />
+      {movies &&
+        movies?.length > 0 &&
+        movies.map((movie, i) => {
+          return (
+            movie?.categoryTitle && (
+              <MovieCarousel
+                key={i}
+                categoryTitle={movie.categoryTitle}
+                thumbnails={movie?.movies}
+                currentCarouselIndex={i}
+                setWatchListMovieIds={setWatchListMovieIds}
+                watchListMovieIds={watchListMovieIds}
+              />
+            )
+          );
+        })}
+    </Box>
+  ) : (
+    <Loader />
   );
 }
 export default dynamic(() => Promise.resolve(Feed), { ssr: false });

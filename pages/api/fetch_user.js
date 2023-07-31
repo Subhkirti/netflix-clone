@@ -18,8 +18,9 @@ export default function fetch_user(req, res) {
         .catch(() => {
           res.status(400).json({
             status: "FAILED",
-            error_message: `Failed to fetch this user ${email}!`,
+            error_message: `Failed to fetch this user ${email ?email:''}!`,
           });
+          
         });
     }
     fetchUsers();

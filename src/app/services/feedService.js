@@ -1,5 +1,7 @@
+import api from "./api";
+
 async function fetchMovies() {
-  const data = await fetch("/api/movies", {
+  const data = await fetch(api.GET_MOVIES, {
     method: "GET",
   })
     .then((res) => res.json())
@@ -19,7 +21,7 @@ async function addMovies(url) {
     });
 
   const reqBody = { movies: movieResults.results };
-  const data = await fetch("/api/add_movies", {
+  const data = await fetch(api.ADD_MOVIES, {
     method: "POST",
     body: JSON.stringify(reqBody),
   })

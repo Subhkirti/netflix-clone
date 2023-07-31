@@ -16,8 +16,8 @@ function MovieCarousel({
   categoryTitle,
   thumbnails,
   currentCarouselIndex,
-  watchListMovieId,
-  setWatchListMovieId,
+  watchListMovieIds,
+  setWatchListMovieIds,
 }) {
   const isMobile = useMobile();
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -88,8 +88,8 @@ function MovieCarousel({
                     showDescriptionCard={true}
                     width={250}
                     height={150}
-                    setWatchListMovieId={setWatchListMovieId}
-                    watchListMovieId={watchListMovieId}
+                    setWatchListMovieIds={setWatchListMovieIds}
+                    watchListMovieIds={watchListMovieIds}
                   />
                 </motion.div>
               );

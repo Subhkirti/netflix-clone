@@ -1,6 +1,8 @@
+import api from "./api";
+
 const languageKey = "appLanguage";
 const isUserLoggedInKey = "isUserLoggedIn";
-const userKey="user";
+const userKey = "user";
 
 function setLanguage(value) {
   if (typeof window !== "undefined") {
@@ -23,7 +25,7 @@ function setIsUserLoggedIn(data) {
 function getIsUserLoggedIn() {
   if (typeof window !== "undefined") {
     const userStatus = localStorage.getItem(isUserLoggedInKey);
-    return userStatus || false;
+    return userStatus === "true" ? true : false;
   } else {
     return false;
   }
@@ -49,7 +51,7 @@ function getLocalUser() {
 
 async function loginAuth(reqBody) {
   // For already existed user
-  const data = await fetch("/api/login", {
+  const data = await fetch(api.LOGIN, {
     method: "POST",
     body: JSON.stringify(reqBody),
   })
@@ -62,7 +64,7 @@ async function loginAuth(reqBody) {
 
 async function signUpAuth(reqBody) {
   // For new user
-  const data = await fetch("/api/signup", {
+  const data = await fetch(api.SIGNUP, {
     method: "POST",
     body: JSON.stringify(reqBody),
   })
@@ -74,7 +76,7 @@ async function signUpAuth(reqBody) {
 }
 
 async function fetchUserFromDB(reqBody) {
-  const data = await fetch("/api/fetch_user", {
+  const data = await fetch(api.FETCH_USER, {
     method: "POST",
     body: JSON.stringify(reqBody),
   })
@@ -94,5 +96,5 @@ export {
   signUpAuth,
   getLocalUser,
   setLocalUser,
-  fetchUserFromDB
+  fetchUserFromDB,
 };

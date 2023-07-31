@@ -1,7 +1,7 @@
 import connection from "../../database/connection";
 import UsersSchema from "../../database/usersSchema";
 
-export default async function add_movie_to_watch_list(req, res) {
+export default async function remove_movie_from_watch_list(req, res) {
   if (req.body) {
     const body = req.body && JSON.parse(req.body);
     await connection();
@@ -15,7 +15,7 @@ export default async function add_movie_to_watch_list(req, res) {
             const movies = [];
             for (var movie of movieCategory.movies) {
               if (movie.id === body.watchList.id) {
-                movie["addedToWatchList"] = true;
+                movie["addedToWatchList"] = false;
                 movies.push(movie);
               } else {
                 movies.push(movie);
@@ -26,12 +26,17 @@ export default async function add_movie_to_watch_list(req, res) {
             updatedMovie.push({ ...movieCategory });
           }
         }
+
+        const filteredWatchList = userData.watchList.filter(
+          (item) => item?.id !== body.watchList.id
+        );
+
         const doc = await UsersSchema.findOneAndUpdate(
           { userId: body.userId },
           {
-            $push: { watchList: body?.watchList },
-            $set: { movies: updatedMovie },
-          }
+            $set: { movies: updatedMovie, watchList: filteredWatchList },
+          },
+          { new: true }
         );
 
         res.status(200).json({

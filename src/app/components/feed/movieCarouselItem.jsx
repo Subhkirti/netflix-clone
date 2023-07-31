@@ -11,7 +11,10 @@ import Image from "next/image";
 import { ellipSize } from "@/app/utils/commonUtil";
 import { useMobile, useTablet } from "@/app/hooks/mediaHooks";
 import classes from "../../styles/feed.module.css";
-import { addToWatchList } from "@/app/services/movieService";
+import {
+  addToWatchList,
+  removeFromWatchList,
+} from "@/app/services/movieService";
 import { setSnackbarMessage } from "@/app/actions/snackBarAction";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocalUser } from "@/app/services/authService";
@@ -24,13 +27,14 @@ function MovieCarouselItem({
   showDescriptionCard,
   width,
   height,
-  watchListMovieId,
-  setWatchListMovieId
+  watchListMovieIds,
+  setWatchListMovieIds,
 }) {
+
   const isTablet = useTablet();
   const isMobile = useMobile();
   const user = useSelector((state) => state.user) || getLocalUser();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   async function handleWatchListBtn(thumbnail, movieId, addToList) {
     const reqBody = {
@@ -40,15 +44,28 @@ function MovieCarouselItem({
     if (addToList) {
       const data = await addToWatchList(reqBody);
       if (data.status === "SUCCESS") {
-        setWatchListMovieId(movieId)
-      }
-      else {
+
+        setWatchListMovieIds((prev) => ({
+          addedIds: prev.addedIds ? [...prev.addedIds, movieId] : [movieId],
+          removedIds: prev.removedIds,
+        }));
+      } else {
         dispatch(
           setSnackbarMessage(res?.error_message || "Try again after sometime.")
         );
       }
     } else {
-
+      const data = await removeFromWatchList(reqBody);
+      if (data.status === "SUCCESS") {
+        setWatchListMovieIds((prev) => ({
+          addedIds: prev.addedIds,
+          removedIds: prev.removedIds ? [...prev.removedIds, movieId] : [movieId],
+        }));
+      } else {
+        dispatch(
+          setSnackbarMessage(res?.error_message || "Try again after sometime.")
+        );
+      }
     }
   }
 
@@ -73,7 +90,9 @@ function MovieCarouselItem({
         <Box className={classes.descriptionBox}>
           <Box className={classes.descriptionIcons}>
             <PlayCircleFilled className={classes.playIcon} />
-            {watchListMovieId === thumbnail?.id || thumbnail?.addedToWatchList ? (
+            {(!watchListMovieIds.removedIds.includes(thumbnail?.id) &&
+              watchListMovieIds.addedIds.includes(thumbnail?.id)) ||
+              (thumbnail?.addedToWatchList && !watchListMovieIds.removedIds.includes(thumbnail?.id)) ? (
               <Check
                 className={classes.icon}
                 onClick={() =>
