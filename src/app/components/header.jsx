@@ -29,7 +29,7 @@ function Header({ transparent, tabsData, signUp }) {
             }}>
                 <Box style={{
                     display: 'flex', flexDirection: "row",
-                    gap: isFeed ? isTablet ? "20px" : "40px" : "0px",
+                    gap: tabsData ? isTablet ? "20px" : "40px" : "0px",
                     justifyContent: "space-between", alignItems: "center",
                 }}>
                     {isFeed && isTablet && <Menu />}

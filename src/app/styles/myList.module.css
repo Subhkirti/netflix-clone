@@ -1,0 +1,31 @@
+.itemWrapper {
+  padding: 12px 24px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background-color: transparent;
+}
+.itemWrapper:hover {
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.479) 20%,
+    #c11e2969,
+    rgba(0, 0, 0, 0.479)
+  );
+  cursor: pointer;
+  transition: background-color 3s ease;
+}
+
+.descTitle {
+  font-size: 24px;
+  font-weight: 700;
+}
+.descSubTitle {
+  font-size: 17px;
+  font-weight: 300;
+  text-align: justify;
+}
+.itemImage {
+  border-radius: 6px;
+  height: auto;
+}

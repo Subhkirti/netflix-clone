@@ -8,16 +8,9 @@ import ThumbnailMedia from "./thumbnailMedia";
 import { useSelector } from "react-redux";
 import { getLocalUser } from "@/app/services/authService";
 import Loader from "@/app/loader";
+import { tabsData } from "@/app/utils/commonUtil";
 
 function Feed() {
-  const tabsData = [
-    { title: "Home", url: "/" },
-    { title: "TV Shows", url: "/tv_shows" },
-    { title: "Movies", url: "/movies" },
-    { title: "Originals", url: "/originals" },
-    { title: "Recently Added", url: "/recenlty_added" },
-    { title: "My List", url: "/mylist" },
-  ];
   const isTablet = useTablet();
   const user = useSelector((state) => state.user) || getLocalUser();
   const [isScrolled, setScrolled] = useState(false);

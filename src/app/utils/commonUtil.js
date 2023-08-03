@@ -13,4 +13,13 @@ function ellipSize(text, maxLength) {
     ? text.substr(0, maxLength) + '...'
     : text;
 }
-export { hasOnlyDigits, isValidEmail,ellipSize };
+
+const tabsData = [
+  { title: "Home", url: "/" },
+  { title: "TV Shows", url: "/tv_shows" },
+  { title: "Movies", url: "/movies" },
+  { title: "Originals", url: "/originals" },
+  { title: "Recently Added", url: "/recenlty_added" },
+  { title: "My List", url: "/mylist" },
+];
+export { hasOnlyDigits, isValidEmail,ellipSize,tabsData };
