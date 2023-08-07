@@ -18,7 +18,6 @@ function MyList() {
   const isMobile = useMobile();
   const user = useSelector((state) => state.user) || getLocalUser();
   const [watchList, setWatchList] = useState([])
-  console.log('watchList:', watchList)
   const dispatch = useDispatch();
 
   useEffect(() => {
