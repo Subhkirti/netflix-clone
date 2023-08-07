@@ -65,14 +65,16 @@ function MyList() {
           watchList.map((item, index) => {
             return (
               <div key={index} className={classes.itemWrapper}>
+                <div>
                 <Image
                   src={`https://image.tmdb.org/t/p/w500${item.backdrop_path || item.poster_path
                     }`}
                   alt=""
-                  width={isTablet ? 150 : 250}
-                  height={isTablet ? 100 : 120}
+                  width={isTablet ? 150 : 230}
+                  height={isTablet ? 100 : 130}
                   className={classes.itemImage}
                 ></Image>
+                </div>
                 <div className={classes.description}>
                   <Box display='flex' justifyContent='space-between' alignItems='center'>
                     <Typography className={classes.descTitle}>

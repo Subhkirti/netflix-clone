@@ -3,8 +3,6 @@ import {
   Add,
   Check,
   PlayCircleFilled,
-  ThumbDownOffAlt,
-  ThumbUpOffAlt,
 } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
@@ -80,7 +78,7 @@ function MovieCarouselItem({
     >
       <Image
         className={classes.thumbnailImage}
-        src={`https://image.tmdb.org/t/p/w500${thumbnail.backdrop_path || thumbnail.poster_path
+        src={`https://image.tmdb.org/t/p/w500${thumbnail?.poster_path || thumbnail?.backdrop_path
           }`}
         alt=""
         width={width}
@@ -107,8 +105,7 @@ function MovieCarouselItem({
                 }
               />
             )}
-            <ThumbUpOffAlt className={classes.icon} />
-            <ThumbDownOffAlt className={classes.icon} />
+       
           </Box>
           <Typography className={classes.descTitle} mt={1}>
             {thumbnail?.title || thumbnail?.original_title}

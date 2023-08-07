@@ -6,7 +6,7 @@ import { ChevronRight, ChevronLeft } from "@mui/icons-material";
 import { motion } from "framer-motion";
 import MovieCarouselItem from "./movieCarouselItem";
 import { responsive } from "@/app/utils/constants";
-import { useMobile } from "@/app/hooks/mediaHooks";
+import { useTablet, useMobile } from "@/app/hooks/mediaHooks";
 
 function MovieCarousel({
   categoryTitle,
@@ -16,6 +16,7 @@ function MovieCarousel({
   setWatchListMovieIds,
   categoryName
 }) {
+  const isTablet = useTablet();
   const isMobile = useMobile();
   const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -39,7 +40,7 @@ function MovieCarousel({
       position="relative"
       zIndex={currentIndex === currentCarouselIndex ? 9 : 1}
       py={0.4}
-      height={isMobile ? 170 : 250}
+      height={isMobile ? 170 :isTablet ? 280 : 350}
       id={categoryName}
 
     >
@@ -53,7 +54,7 @@ function MovieCarousel({
       <Box>
         <Carousel
           slidesToSlide={4}
-          removeArrowOnDeviceType={["tablet", "mobile"]}
+          removeArrowOnDeviceType={["tablet", "mobile", "smallMobile"]}
           customRightArrow={<CustomRightArrow />}
           customLeftArrow={<CustomLeftArrow />}
           responsive={responsive}
@@ -75,8 +76,8 @@ function MovieCarousel({
                     setCurrentIndex={setCurrentIndex}
                     currentCarouselIndex={currentCarouselIndex}
                     showDescriptionCard={true}
-                    width={250}
-                    height={150}
+                    width={205}
+                    height={230}
                     setWatchListMovieIds={setWatchListMovieIds}
                     watchListMovieIds={watchListMovieIds}
                   />

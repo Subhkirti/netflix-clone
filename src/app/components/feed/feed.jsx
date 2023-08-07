@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { getLocalUser } from "@/app/services/authService";
 import Loader from "@/app/loader";
 import { tabsData } from "@/app/utils/commonUtil";
+import { addMovies } from "@/app/services/feedService";
 
 function Feed() {
   const isTablet = useTablet();

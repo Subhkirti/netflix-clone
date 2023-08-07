@@ -18,7 +18,7 @@ const tabsData = [
   { title: "Home", url: "/" },
   { title: "Top Rated", url: "#topRated" },
   { title: "Trendings", url: "#trending" },
-  { title: "Originals", url: "#netflixOriginals" },
+  { title: "Originals", url: "#originals" },
   { title: "Recently Added", url: "#recentlyAdded" },
   { title: "My List", url: "/mylist" },
 ];

@@ -30,7 +30,6 @@
 }
 .itemImage {
   border-radius: 3px;
-  height: auto;
 }
 
 @media (max-width: 800px) {
