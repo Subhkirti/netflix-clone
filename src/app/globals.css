@@ -10,6 +10,9 @@
   --green: rgb(43, 184, 113);
   --dark-yellow: rgb(216, 157, 49);
 }
+html {
+  scroll-behavior: smooth;
+}
 button {
   box-shadow: none !important;
 }

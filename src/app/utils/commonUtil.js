@@ -16,10 +16,10 @@ function ellipSize(text, maxLength) {
 
 const tabsData = [
   { title: "Home", url: "/" },
-  { title: "TV Shows", url: "/tv_shows" },
-  { title: "Movies", url: "/movies" },
-  { title: "Originals", url: "/originals" },
-  { title: "Recently Added", url: "/recenlty_added" },
+  { title: "Top Rated", url: "#topRated" },
+  { title: "Trendings", url: "#trending" },
+  { title: "Originals", url: "#netflixOriginals" },
+  { title: "Recently Added", url: "#recentlyAdded" },
   { title: "My List", url: "/mylist" },
 ];
 export { hasOnlyDigits, isValidEmail,ellipSize,tabsData };

@@ -43,6 +43,7 @@ function Feed() {
     window.addEventListener("scroll", handleScroll);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [banners, movies]);
+
   return movies && movies?.length > 0 && homeBanner ? (
     <Box px={isTablet ? 2 : 9}>
       <Header tabsData={tabsData} transparent={isScrolled ? false : true} />
@@ -54,6 +55,7 @@ function Feed() {
             movie?.categoryTitle && (
               <MovieCarousel
                 key={i}
+                categoryName={movie?.category}
                 categoryTitle={movie.categoryTitle}
                 thumbnails={movie?.movies}
                 currentCarouselIndex={i}

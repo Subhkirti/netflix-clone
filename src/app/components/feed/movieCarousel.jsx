@@ -14,6 +14,7 @@ function MovieCarousel({
   currentCarouselIndex,
   watchListMovieIds,
   setWatchListMovieIds,
+  categoryName
 }) {
   const isMobile = useMobile();
   const [currentIndex, setCurrentIndex] = useState(-1);
@@ -39,6 +40,8 @@ function MovieCarousel({
       zIndex={currentIndex === currentCarouselIndex ? 9 : 1}
       py={0.4}
       height={isMobile ? 170 : 250}
+      id={categoryName}
+
     >
       <Typography
         variant="h4"

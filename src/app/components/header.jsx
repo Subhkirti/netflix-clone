@@ -46,7 +46,7 @@ function Header({ transparent, tabsData, signUp }) {
 
                     {!isTablet && tabsData && <Box className='displayFlex' width="600px">
                         {tabsData.map((tab, i) => {
-                            return <Link href={tab.url} style={{ color: 'white' }} key={i} className='removeLinkStyle'><Typography >{tab.title}</Typography></Link>
+                            return <a href={tab.url} style={{ color: 'white' }} key={i} className='removeLinkStyle'><Typography >{tab.title}</Typography></a>
                         })}
                     </Box>}
 
