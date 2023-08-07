@@ -4,6 +4,9 @@
   gap: 20px;
   align-items: center;
   background-color: transparent;
+  border: 0.5px solid var(--grey);
+  border-radius: 5px;
+  margin-bottom: 8px;
 }
 .itemWrapper:hover {
   background: linear-gradient(
@@ -26,6 +29,49 @@
   text-align: justify;
 }
 .itemImage {
-  border-radius: 6px;
+  border-radius: 3px;
   height: auto;
+}
+
+@media (max-width: 800px) {
+  .descTitle {
+    font-size: 20px;
+  }
+  .descSubTitle {
+    font-size: 14px;
+  }
+}
+@media (max-width: 500px) {
+  .itemWrapper {
+    flex-direction: column;
+  }
+  .itemImage {
+    width: 300px;
+    height: 140px;
+  }
+  .itemWrapper:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.479),
+      #c11e2969
+    );
+  }
+}
+@media (max-width: 340px) {
+  .itemWrapper {
+    flex-direction: column;
+  }
+  .itemImage {
+    width: 200px;
+    height: 140px;
+  }
+}
+@media (max-width: 250px) {
+  .itemWrapper {
+    flex-direction: column;
+  }
+  .itemImage {
+    width: 130px;
+    height: 100px;
+  }
 }
