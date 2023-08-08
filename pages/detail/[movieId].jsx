@@ -129,7 +129,7 @@ function MovieDetail() {
                   <Avatar
                     style={{
                       backgroundColor: company?.logo_path
-                        ? "transparent"
+                        ? "white"
                         : "#414141",
                     }}
                     className={classes.avatar}
