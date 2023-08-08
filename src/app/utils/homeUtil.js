@@ -54,8 +54,8 @@ function homeCarouselData(isMobile, isTablet) {
       subTitle: languageText.SEND_CHILDREN_ON_ADVENTURES,
       source:
         globalLanguage === "hi"
-          ? "http://surl.li/ijeam"
-          : "http://surl.li/ijeau",
+          ? "https://occ-0-2991-2164.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVgKoWCAejBWO2Dxg4NyMHlC3OdKWTTdvZshvYQizpH-VvlWFbMUjVkidAc2fX5rPOS1Cu2hSJOa8cOcngrDRR5ZmZkdEu7cg0Ay.png?r=d52"
+          : "https://occ-0-2991-2164.1.nflxso.net/dnm/api/v6/19OhWN2dO19C9txTON9tvTFtefw/AAAABVr8nYuAg0xDpXDv0VI9HUoH7r2aGp4TKRCsKNQrMwxzTtr-NlwOHeS8bCI2oeZddmu3nMYr3j9MjYhHyjBASb1FaOGYZNYvPBCL.png?r=54d",
       width: isMobile ? 300 : isTablet ? 400 : 500,
       height: isMobile ? 280 : isTablet ? 300 : 400,
       videoSource: null,
