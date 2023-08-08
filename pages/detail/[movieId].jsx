@@ -34,12 +34,14 @@ function MovieDetail() {
       }
     }
     movieId && !trailerKey && fetchTrailer();
-  }, [movieId,trailerKey]);
+  }, [movieId, trailerKey]);
+
+  const language = movie?.original_language === "en" ? "English" : movie?.original_language === "hi" ? "Hindi" : movie?.original_language;
 
   return movie ? (
     <Box px={isTablet ? 4 : 9}>
       <Header tabsData={tabsData} />
-      <Box my={2}>  
+      <Box my={2}>
         {trailerKey && (
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${trailerKey}`}
@@ -55,8 +57,8 @@ function MovieDetail() {
       </Box>
       <BorderLine />
 
-      <Box my={2}  className={classes.infoSection}>
-        <Box  display="flex" alignItems="center">
+      <Box my={2} className={classes.infoSection}>
+        <Box display="flex" alignItems="center">
           {!isTablet && (
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path || movie.backdrop_path
@@ -79,42 +81,46 @@ function MovieDetail() {
         </Box>
       </Box>
       <Box mb={2}>
-      {movie?.genres?.length > 0 && (
-        <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-          <Typography variant="h6"  style={{ color: "rgb(202, 201, 201)" }}> Genre:</Typography>
-          {movie?.genres.map((genre, i) => (
-            <Button key={i} className={classes.genreBtn} variant="outlined">
-              {genre?.name}
-            </Button>
-          ))}
-        </Box>
-      )}
+        {movie?.genres?.length > 0 && (
+          <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
+            <Typography variant="h6" style={{ color: "rgb(202, 201, 201)" }}> Genre:</Typography>
+            {movie?.genres.map((genre, i) => (
+              <Button key={i} className={classes.genreBtn} variant="outlined">
+                {genre?.name}
+              </Button>
+            ))}
+          </Box>
+        )}
       </Box>
 
       <BorderLine />
       <Box my={2} style={{ color: "rgb(202, 201, 201)" }}>
-        <Typography variant="h6"> Details:</Typography>
+        <Typography variant="h6" mb={1}> Details:</Typography>
         <Box className={classes.desc}>
           <Typography>
             Language:{" "}
             <span className={classes?.descItem}>
-              {movie?.original_language}
+              {language}
             </span>
           </Typography>
+          {movie?.release_date &&
           <Typography>
             Released On:{" "}
-            {movie?.release_date && standardDate(movie?.release_date)}
-          </Typography>
+            {standardDate(movie?.release_date)}
+          </Typography>}
+          {movie?.vote_count &&
           <Typography>
             Votes:{" "}
             {movie?.vote_count}
-          </Typography>
+          </Typography>}
+          {movie?.budget &&
           <Typography>
             Budget:{" "}{movie?.budget}
-          </Typography>
+          </Typography>}
+          {movie?.revenue  &&
           <Typography>
-            Revenue:{" "} {movie?.revenue}
-          </Typography>
+            Revenue:{" "} {movie?.revenue }
+          </Typography>}
         </Box>
       </Box>
 
