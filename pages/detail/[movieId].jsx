@@ -39,31 +39,24 @@ function MovieDetail() {
   return movie ? (
     <Box px={isTablet ? 4 : 9}>
       <Header tabsData={tabsData} />
-      {trailerKey && (
-        <ReactPlayer
-          url={`https://www.youtube.com/watch?v=${trailerKey}`}
-          width="100%"
-          height={isTablet ? "500px" : "600px"}
-          style={{
-            margin: "0px auto",
-          }}
-          playing={false}
-        />
-      )}
-
-      <Box my={2} className={classes.infoSection}>
-        {movie?.genres?.length > 0 && (
-          <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-            <Typography variant="h6"> Genre:</Typography>
-            {movie?.genres.map((genre, i) => (
-              <Button key={i} className={classes.genreBtn} variant="outlined">
-                {genre?.name}
-              </Button>
-            ))}
-          </Box>
+      <Box my={2}>  
+        {trailerKey && (
+          <ReactPlayer
+            url={`https://www.youtube.com/watch?v=${trailerKey}`}
+            width="100%"
+            height={isTablet ? "500px" : "600px"}
+            style={{
+              margin: "0px auto",
+            }}
+            playing={false}
+            controls={true}
+          />
         )}
+      </Box>
+      <BorderLine />
 
-        <Box display="flex" alignItems="center">
+      <Box my={2}  className={classes.infoSection}>
+        <Box  display="flex" alignItems="center">
           {!isTablet && (
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path || movie.backdrop_path
@@ -85,9 +78,20 @@ function MovieDetail() {
           </Box>
         </Box>
       </Box>
+      <Box mb={2}>
+      {movie?.genres?.length > 0 && (
+        <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
+          <Typography variant="h6"> Genre:</Typography>
+          {movie?.genres.map((genre, i) => (
+            <Button key={i} className={classes.genreBtn} variant="outlined">
+              {genre?.name}
+            </Button>
+          ))}
+        </Box>
+      )}
+      </Box>
 
       <BorderLine />
-
       <Box my={2} style={{ color: "rgb(202, 201, 201)" }}>
         <Typography variant="h6"> Details:</Typography>
         <Box className={classes.desc}>
