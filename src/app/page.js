@@ -11,7 +11,6 @@ import {
   fetchUserFromDB,
   getIsUserLoggedIn,
   getLocalUser,
-  setIsUserLoggedIn,
 } from "./services/authService";
 import Feed from "./components/feed/feed";
 import { Provider, useSelector, useDispatch } from "react-redux";
