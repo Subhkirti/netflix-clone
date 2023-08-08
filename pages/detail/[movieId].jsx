@@ -34,7 +34,7 @@ function MovieDetail() {
       }
     }
     movieId && !trailerKey && fetchTrailer();
-  }, [movieId]);
+  }, [movieId,trailerKey]);
 
   return movie ? (
     <Box px={isTablet ? 4 : 9}>
@@ -81,7 +81,7 @@ function MovieDetail() {
       <Box mb={2}>
       {movie?.genres?.length > 0 && (
         <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-          <Typography variant="h6"> Genre:</Typography>
+          <Typography variant="h6"  style={{ color: "rgb(202, 201, 201)" }}> Genre:</Typography>
           {movie?.genres.map((genre, i) => (
             <Button key={i} className={classes.genreBtn} variant="outlined">
               {genre?.name}

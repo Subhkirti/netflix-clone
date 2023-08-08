@@ -6,12 +6,13 @@ import { getLocalUser } from "@/app/services/authService";
 import Loader from "@/app/loader";
 import Image from "next/image";
 import Header from "@/app/components/header";
-import { ellipSize, tabsData } from "@/app/utils/commonUtil";
+import { ellipSize, movieDetailUrl, tabsData } from "@/app/utils/commonUtil";
 import { Box, Typography } from "@mui/material";
 import { useTablet, useMobile } from "@/app/hooks/mediaHooks";
 import classes from "../src/app/styles/myList.module.css";
 import NoVideos from "@/app/components/feed/noVideos";
 import { Close } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 function MyList() {
   const isTablet = useTablet();
@@ -19,6 +20,7 @@ function MyList() {
   const user = useSelector((state) => state.user) || getLocalUser();
   const [watchList, setWatchList] = useState([])
   const dispatch = useDispatch();
+  const router = useRouter()
 
   useEffect(() => {
     async function getWatchList() {
@@ -48,7 +50,7 @@ function MyList() {
       const filteredWatchList = watchList.filter(
         (item, i) => i !== index
       );
-      setWatchList(filteredWatchList?.length===0?null:filteredWatchList)
+      setWatchList(filteredWatchList?.length === 0 ? null : filteredWatchList)
     } else {
       dispatch(
         setSnackbarMessage(res?.error_message || "Try again after sometime.")
@@ -64,16 +66,16 @@ function MyList() {
         ) : watchList?.length > 0 ? (
           watchList.map((item, index) => {
             return (
-              <div key={index} className={classes.itemWrapper}>
+              <Box onClick={() => router.push(movieDetailUrl(item?.id))} key={index} className={classes.itemWrapper}>
                 <div>
-                <Image
-                  src={`https://image.tmdb.org/t/p/w500${item.backdrop_path || item.poster_path
-                    }`}
-                  alt=""
-                  width={isTablet ? 150 : 230}
-                  height={isTablet ? 100 : 130}
-                  className={classes.itemImage}
-                ></Image>
+                  <Image
+                    src={`https://image.tmdb.org/t/p/w500${item.backdrop_path || item.poster_path
+                      }`}
+                    alt=""
+                    width={isTablet ? 150 : 230}
+                    height={isTablet ? 100 : 130}
+                    className={classes.itemImage}
+                  ></Image>
                 </div>
                 <div className={classes.description}>
                   <Box display='flex' justifyContent='space-between' alignItems='center'>
@@ -87,7 +89,7 @@ function MyList() {
                     {ellipSize(item?.overview, isMobile ? 300 : 1000)}
                   </Typography>
                 </div>
-              </div>
+              </Box>
             );
           })
         ) : (

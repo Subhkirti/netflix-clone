@@ -2,7 +2,7 @@ import React from 'react'
 import classes from '../../styles/feed.module.css'
 import Image from 'next/image'
 import { Box, Typography, Button } from '@mui/material'
-import { ellipSize } from '@/app/utils/commonUtil'
+import { ellipSize, movieDetailUrl } from '@/app/utils/commonUtil'
 import { ErrorOutline, PlayArrow } from '@mui/icons-material';
 import { useMobile, useTablet } from '@/app/hooks/mediaHooks';
 import { useRouter } from "next/navigation";
@@ -24,8 +24,9 @@ function ThumbnailMedia({ homeBanner }) {
           {homeBanner?.id}
           <Typography className={classes.bannerSubTitle}>{ellipSize(homeBanner?.overview, isTablet ? 250 : 400)}</Typography>
           <Box mt={2}>
-            <Button onClick={() => router.push(`/detail/${btoa(homeBanner?.id)}`)} className={classes.bannerPlayIcon} variant='contained' startIcon={<PlayArrow style={{ fontSize: "30px" }} />}>Play</Button>
-            <Button onClick={() => router.push(`/detail/${btoa(homeBanner?.id)}`)} className={classes.infoIcon} variant='contained' startIcon={<ErrorOutline />}>More Info</Button>
+            <Button onClick={() => router.push(movieDetailUrl(homeBanner?.id))} className={classes.bannerPlayIcon} variant='contained' startIcon={<PlayArrow style={{ fontSize: "30px" }} />}>Play</Button>
+
+            <Button onClick={() => router.push(movieDetailUrl(homeBanner?.id))} className={classes.infoIcon} variant='contained' startIcon={<ErrorOutline />}>More Info</Button>
           </Box>
         </Box>}
       </Box>

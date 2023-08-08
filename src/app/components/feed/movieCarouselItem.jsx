@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
-import { ellipSize } from "@/app/utils/commonUtil";
+import { ellipSize, movieDetailUrl } from "@/app/utils/commonUtil";
 import { useMobile, useTablet } from "@/app/hooks/mediaHooks";
 import classes from "../../styles/feed.module.css";
 import {
@@ -16,6 +16,7 @@ import {
 import { setSnackbarMessage } from "@/app/actions/snackBarAction";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocalUser } from "@/app/services/authService";
+import { useRouter } from "next/navigation";
 
 function MovieCarouselItem({
   thumbnail,
@@ -33,7 +34,7 @@ function MovieCarouselItem({
   const isMobile = useMobile();
   const user = useSelector((state) => state.user) || getLocalUser();
   const dispatch = useDispatch();
-
+  const router = useRouter()
   async function handleWatchListBtn(thumbnail, movieId, addToList) {
     const reqBody = {
       userId: user && user?.userId,
@@ -87,7 +88,7 @@ function MovieCarouselItem({
       {!isMobile && showDescriptionCard && (
         <Box className={classes.descriptionBox}>
           <Box className={classes.descriptionIcons}>
-            <PlayCircleFilled className={classes.playIcon} />
+            <PlayCircleFilled onClick={() => router.push(movieDetailUrl(thumbnail?.id))} className={classes.playIcon} />
             {(!watchListMovieIds.removedIds.includes(thumbnail?.id) &&
               watchListMovieIds.addedIds.includes(thumbnail?.id)) ||
               (thumbnail?.addedToWatchList && !watchListMovieIds.removedIds.includes(thumbnail?.id)) ? (
@@ -105,7 +106,7 @@ function MovieCarouselItem({
                 }
               />
             )}
-       
+
           </Box>
           <Typography className={classes.descTitle} mt={1}>
             {thumbnail?.title || thumbnail?.original_title}

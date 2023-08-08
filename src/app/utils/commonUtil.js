@@ -28,6 +28,19 @@ function standardDate(date) {
   const parsedDate = new Date(inputDate);
   const options = { year: "numeric", month: "long", day: "numeric" };
   const formattedDate = parsedDate.toLocaleDateString("en-US", options);
-return  formattedDate
+  return formattedDate;
 }
-export { hasOnlyDigits, isValidEmail, ellipSize, tabsData, standardDate };
+
+function movieDetailUrl(movieId) {
+  const url = movieId ? `/detail/${btoa(movieId)}` : "/";
+  return url;
+}
+
+export {
+  hasOnlyDigits,
+  isValidEmail,
+  ellipSize,
+  tabsData,
+  standardDate,
+  movieDetailUrl,
+};
