@@ -5,12 +5,12 @@ function hasOnlyDigits(value) {
 
 function isValidEmail(email) {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return email ? emailPattern.test(email):false;
+  return email ? emailPattern.test(email) : false;
 }
 
 function ellipSize(text, maxLength) {
   return text && text.length > maxLength
-    ? text.substr(0, maxLength) + '...'
+    ? text.substr(0, maxLength) + "..."
     : text;
 }
 
@@ -22,4 +22,12 @@ const tabsData = [
   { title: "Recently Added", url: "/#recentlyAdded" },
   { title: "My List", url: "/mylist" },
 ];
-export { hasOnlyDigits, isValidEmail,ellipSize,tabsData };
+
+function standardDate(date) {
+  const inputDate = date;
+  const parsedDate = new Date(inputDate);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  const formattedDate = parsedDate.toLocaleDateString("en-US", options);
+return  formattedDate
+}
+export { hasOnlyDigits, isValidEmail, ellipSize, tabsData, standardDate };

@@ -23,6 +23,7 @@ function MovieCarousel({
   const CustomLeftArrow = ({ onClick, ...rest }) => {
     return (
       <div onClick={() => onClick()} className={classes.leftScrollIcon}>
+
         <ChevronLeft fontSize="40px" />
       </div>
     );
@@ -40,7 +41,7 @@ function MovieCarousel({
       position="relative"
       zIndex={currentIndex === currentCarouselIndex ? 9 : 1}
       py={0.4}
-      height={isMobile ? 170 :isTablet ? 280 : 350}
+      height={isMobile ? 170 : isTablet ? 280 : 350}
       id={categoryName}
 
     >

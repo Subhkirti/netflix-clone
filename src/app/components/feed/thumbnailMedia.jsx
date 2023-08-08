@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { fetchMovies } from '@/app/services/feedService';
+import React from 'react'
 import classes from '../../styles/feed.module.css'
 import Image from 'next/image'
 import { Box, Typography, Button } from '@mui/material'
 import { ellipSize } from '@/app/utils/commonUtil'
 import { ErrorOutline, PlayArrow } from '@mui/icons-material';
 import { useMobile, useTablet } from '@/app/hooks/mediaHooks';
-import Loader from '@/app/loader';
+import { useRouter } from "next/navigation";
 
 function ThumbnailMedia({ homeBanner }) {
   const isTablet = useTablet()
   const isMobile = useMobile()
+  const router = useRouter()
 
   return (
     <Box>
@@ -21,10 +21,11 @@ function ThumbnailMedia({ homeBanner }) {
 
         {!isMobile && <Box className={classes.bannerDescription}>
           <Typography className={classes.bannerTitle}>{homeBanner?.title || homeBanner?.original_title}</Typography >
+          {homeBanner?.id}
           <Typography className={classes.bannerSubTitle}>{ellipSize(homeBanner?.overview, isTablet ? 250 : 400)}</Typography>
           <Box mt={2}>
-            <Button className={classes.bannerPlayIcon} variant='contained' startIcon={<PlayArrow style={{ fontSize: "30px" }} />}>Play</Button>
-            <Button className={classes.infoIcon} variant='contained' startIcon={<ErrorOutline />}>More Info</Button>
+            <Button onClick={() => router.push(`/detail/${btoa(homeBanner?.id)}`)} className={classes.bannerPlayIcon} variant='contained' startIcon={<PlayArrow style={{ fontSize: "30px" }} />}>Play</Button>
+            <Button onClick={() => router.push(`/detail/${btoa(homeBanner?.id)}`)} className={classes.infoIcon} variant='contained' startIcon={<ErrorOutline />}>More Info</Button>
           </Box>
         </Box>}
       </Box>

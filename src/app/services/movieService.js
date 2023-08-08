@@ -33,4 +33,20 @@ async function fetchWatchList(reqBody) {
     });
   return data;
 }
-export { addToWatchList, fetchWatchList, removeFromWatchList };
+
+async function fetchMovieDetail(url) {
+  const data = await fetch(url, {
+    method: "GET",
+  })
+    .then((res) => res.json())
+    .then((response) => {
+      return response;
+    });
+  return data;
+}
+export {
+  addToWatchList,
+  fetchWatchList,
+  removeFromWatchList,
+  fetchMovieDetail,
+};

@@ -1,0 +1,74 @@
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: rgb(202, 201, 201);
+}
+.title {
+  font-size: 27px;
+  font-weight: 900;
+  color: rgb(184, 184, 184);
+}
+.subTitle {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: justify;
+}
+
+.genreBtn {
+  color: rgb(184, 184, 184);
+  border-radius: 20px;
+  border: 1px solid grey;
+}
+.genreBtn:hover {
+  background-color: #414141;
+  color: white;
+  border: 1px solid grey;
+}
+.avatar {
+  border: 1px solid grey;
+  margin-bottom: 8px;
+  width: 50px;
+  height: 50px;
+}
+.companiesBox {
+  margin-top: 20px;
+  flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: rgb(221, 219, 219);
+}
+.avatarBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.avatarText {
+  text-align: center;
+  width: 150px;
+  font-size: 14px;
+}
+.desc {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.desc p {
+  padding: 10px;
+  background-color: rgb(166, 166, 166);
+  box-shadow: inset 2px -1px 30px #303030;
+  font-weight: 500;
+  font-size:18px;
+}
+
+@media (max-width: 850px) {
+  .title {
+    font-size: 20px;
+  }
+  .subTitle {
+    font-size: 14px;
+  }
+}
