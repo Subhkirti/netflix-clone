@@ -54,7 +54,7 @@ function MovieCarousel({
       </Typography>
       <Box>
         <Carousel
-          slidesToSlide={4}
+          slidesToSlide={5}
           removeArrowOnDeviceType={["tablet", "mobile", "smallMobile"]}
           customRightArrow={<CustomRightArrow />}
           customLeftArrow={<CustomLeftArrow />}
