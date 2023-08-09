@@ -86,9 +86,9 @@ function Header({ transparent, tabsData, signUp, showBack }) {
                 >
                     {isUserLoggedIn && isTablet && (
                         <>
-                               {showBack && isTablet && (
-                    <ArrowBack onClick={() => router.back()} style={{ color: "white",cursor:'pointer' }} />
-                )}
+                            {showBack && isTablet && (
+                                <ArrowBack onClick={() => router.back()} style={{ color: "white", cursor: 'pointer' }} />
+                            )}
                             <Menu onClick={() => setOpen(true)} />
 
                             <Drawer
@@ -130,8 +130,8 @@ function Header({ transparent, tabsData, signUp, showBack }) {
                         />
                     </Link>
                     {showBack && !isTablet && (
-                    <ArrowBack onClick={() => router.back()} style={{ color: "white",cursor:'pointer' }} />
-                )}
+                        <ArrowBack onClick={() => router.back()} style={{ color: "white", cursor: 'pointer' }} />
+                    )}
                     {!isTablet && tabsData && NavigationMenu()}
                 </Box>
                 {tabsData && isUserLoggedIn && <SignOutButton />}

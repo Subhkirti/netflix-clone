@@ -96,6 +96,21 @@
   position: relative;
   z-index: 9999;
 }
+li:first-child .thumbnailItem:hover{
+  position: relative;
+  z-index: 9999;
+  left: 50px;
+}
+li:nth-child(6) .thumbnailItem:hover{
+  position: relative;
+  z-index: 9999;
+  right: 40px; 
+}
+li:last-child .thumbnailItem:hover{
+  position: relative;
+  z-index: 9999;
+  right: 40px; 
+}
 
 .thumbnailItem:hover .thumbnailImage {
   transform: scale(1.4,1.2);
