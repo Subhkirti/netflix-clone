@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useMobile, useTablet } from "../hooks/mediaHooks";
 import { getLanguage, getIsUserLoggedIn } from "../services/authService";
 import language from "../languages/langIndex";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SignOutButton from "./signOutButton";
-import { Menu,Close } from "@mui/icons-material";
+import { Menu, Close, ArrowBack } from "@mui/icons-material";
 
-function Header({ transparent, tabsData, signUp }) {
+function Header({ transparent, tabsData, signUp, showBack }) {
     const isMobile = useMobile();
     const isTablet = useTablet();
     const globalLanguage = getLanguage();
@@ -20,6 +20,7 @@ function Header({ transparent, tabsData, signUp }) {
     const isUserLoggedIn = getIsUserLoggedIn();
     const isFeed = pathname === "/" && isUserLoggedIn;
     const [isOpen, setOpen] = useState(false);
+    const router = useRouter();
     const [currentHash, setCurrentHash] = useState(document?.location.hash);
     const openDrawerPosition = "left";
     useEffect(() => {
@@ -85,32 +86,36 @@ function Header({ transparent, tabsData, signUp }) {
                 >
                     {isUserLoggedIn && isTablet && (
                         <>
+                               {showBack && isTablet && (
+                    <ArrowBack onClick={() => router.back()} style={{ color: "white",cursor:'pointer' }} />
+                )}
                             <Menu onClick={() => setOpen(true)} />
-                        
+
                             <Drawer
                                 anchor={openDrawerPosition}
                                 open={isOpen}
                                 onClose={() => setOpen(false)}
                                 classes={{
-                                    paper: "paperDrawer"
+                                    paper: "paperDrawer",
                                 }}
                             >
-                             <Box m={2} className="displayFlex" 
-                             >
+                                <Box m={2} className="displayFlex">
                                     <Image
-                                style={{ marginTop: "6px" }}
-                                src={logo}
-                                alt=""
-                                width={100}
-                                height={30}
-                                priority="high"
-                            />
+                                        style={{ marginTop: "6px" }}
+                                        src={logo}
+                                        alt=""
+                                        width={100}
+                                        height={30}
+                                        priority="high"
+                                    />
 
-                            <Close style={{color:"white"}}  onClick={() => setOpen(false)}/>
-                            </Box>
+                                    <Close
+                                        style={{ color: "white" }}
+                                        onClick={() => setOpen(false)}
+                                    />
+                                </Box>
                                 {NavigationMenu()}
                             </Drawer>
-
                         </>
                     )}
 
@@ -124,6 +129,9 @@ function Header({ transparent, tabsData, signUp }) {
                             priority="high"
                         />
                     </Link>
+                    {showBack && !isTablet && (
+                    <ArrowBack onClick={() => router.back()} style={{ color: "white",cursor:'pointer' }} />
+                )}
                     {!isTablet && tabsData && NavigationMenu()}
                 </Box>
                 {tabsData && isUserLoggedIn && <SignOutButton />}

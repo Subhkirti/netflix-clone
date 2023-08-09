@@ -59,7 +59,7 @@ function MyList() {
   }
   return (
     <React.Fragment>
-      <Header tabsData={tabsData} transparent={false} />
+      <Header tabsData={tabsData} transparent={false} showBack={true} />
       <Box px={isTablet ? 2 : 9}>
         {watchList === null ? (
           <NoVideos />
