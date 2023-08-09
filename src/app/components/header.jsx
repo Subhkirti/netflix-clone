@@ -19,6 +19,9 @@ function Header({ transparent, tabsData, signUp }) {
     const location = usePathname()
     const isUserLoggedIn = getIsUserLoggedIn()
     const isFeed = location === "/" && isUserLoggedIn
+    console.log('location:', location, tabsData)
+
+
     return (
         <React.Fragment>
             <AppBar style={{
@@ -46,7 +49,7 @@ function Header({ transparent, tabsData, signUp }) {
 
                     {!isTablet && tabsData && <Box className='displayFlex' width="600px">
                         {tabsData.map((tab, i) => {
-                            return <a href={tab.url} style={{ color: 'white' }} key={i} className='removeLinkStyle'><Typography >{tab.title}</Typography></a>
+                            return <a href={tab.url} style={{ color: 'white',textDecoration:"none" }} key={i} ><Typography className={location === tab.url ? "underline" : 'animatedUnderLine'}>{tab.title}</Typography></a>
                         })}
                     </Box>}
 

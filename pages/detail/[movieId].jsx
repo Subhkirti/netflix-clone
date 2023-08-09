@@ -62,17 +62,19 @@ function MovieDetail() {
 
       <Box my={2} className={classes.infoSection}>
         <Box display="flex" alignItems="center">
-          {!isTablet && (
-            <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path || movie.backdrop_path
-                }`}
-              alt=""
-              width="90"
-              height="90"
-              style={{ borderRadius: "6px" }}
-            ></Image>
+          {!isTablet && (movie.poster_path || movie.backdrop_path) && (
+            <div>
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path || movie.backdrop_path
+                  }`}
+                alt=""
+                width="90"
+                height="100"
+                style={{ borderRadius: "6px" }}
+              ></Image>
+            </div>
           )}
-          <Box ml={isTablet ? 0 : 2}>
+          <Box ml={isTablet || (!movie.poster_path && !movie.backdrop_path)? 0 : 2}>
             <Typography className={classes.title}>
               {movie?.title || movie?.original_title}
             </Typography>

@@ -10,6 +10,34 @@
   --green: rgb(43, 184, 113);
   --dark-yellow: rgb(216, 157, 49);
 }
+.underline {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  width: fit-content;
+}
+.animatedUnderLine {
+  display: inline-block;
+  position: relative;
+  color: white;
+}
+
+.animatedUnderLine:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transform-origin: bottom right;
+  transition: transform 0.27s ease-out;
+}
+
+.animatedUnderLine:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
 html {
   scroll-behavior: smooth;
 }
