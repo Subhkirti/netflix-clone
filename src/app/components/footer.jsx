@@ -14,18 +14,25 @@ function Footer() {
 
     return (
         <Box className={`${classes.footerContainer}`} >
-            <Typography className={classes.linkStyle}>
-                {languageText.FOOTER_TITLE + " "}
+            <Box display="flex" gap={0.6}>
+                <Typography>
+                    {languageText.FOOTER_TITLE + " "}
+                </Typography>
+
                 <Link className={classes.linkStyle} href="/">
-                    000-800-919-1694
+                    <Typography>
+                        000-800-919-1694
+                    </Typography>
                 </Link>
-            </Typography>
+            </Box>
             <Grid container className={classes.gridWrapper} my={5}>
                 {footerData.map((footer, i) => {
                     return (
                         <Grid item key={i}>
                             <Link className={classes.linkStyle} href={footer.url}>
-                                {footer.text}
+                                <Typography>
+                                    {footer.text}
+                                </Typography>
                             </Link>
                         </Grid>
                     );

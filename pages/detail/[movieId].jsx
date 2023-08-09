@@ -18,6 +18,7 @@ function MovieDetail() {
   const isTablet = useTablet();
   const movieId = router?.query?.movieId && atob(router.query.movieId);
   const [movie, setMovie] = useState(null);
+  console.log('movie:', movie)
   const [trailerKey, setTrailerKey] = useState(null);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ function MovieDetail() {
     <Box px={isTablet ? 4 : 9}>
       <Header tabsData={tabsData} />
       <Box my={2}>
-        {trailerKey && (
+        {trailerKey ? (
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${trailerKey}`}
             width="100%"
@@ -53,7 +54,9 @@ function MovieDetail() {
             playing={false}
             controls={true}
           />
-        )}
+        )
+          :
+          <Typography align="center" className={classes.title}>The video is not available for now...</Typography>}
       </Box>
       <BorderLine />
 
@@ -104,23 +107,23 @@ function MovieDetail() {
             </span>
           </Typography>
           {movie?.release_date &&
-          <Typography>
-            Released On:{" "}
-            {standardDate(movie?.release_date)}
-          </Typography>}
+            <Typography>
+              Released On:{" "}
+              {standardDate(movie?.release_date)}
+            </Typography>}
           {movie?.vote_count &&
-          <Typography>
-            Votes:{" "}
-            {movie?.vote_count}
-          </Typography>}
+            <Typography>
+              Votes:{" "}
+              {movie?.vote_count}
+            </Typography>}
           {movie?.budget &&
-          <Typography>
-            Budget:{" "}{movie?.budget}
-          </Typography>}
-          {movie?.revenue  &&
-          <Typography>
-            Revenue:{" "} {movie?.revenue }
-          </Typography>}
+            <Typography>
+              Budget:{" "}{movie?.budget}
+            </Typography>}
+          {movie?.revenue &&
+            <Typography>
+              Revenue:{" "} {movie?.revenue}
+            </Typography>}
         </Box>
       </Box>
 
