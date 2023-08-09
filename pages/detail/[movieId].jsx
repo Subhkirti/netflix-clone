@@ -9,7 +9,7 @@ import {
 import ReactPlayer from "react-player";
 import Header from "@/app/components/header";
 import { standardDate, tabsData } from "@/app/utils/commonUtil";
-import { Avatar, Box, Button, Typography, CircularProgress } from "@mui/material";
+import { Avatar, Box, Button, Typography } from "@mui/material";
 import Loader from "@/app/loader";
 import classes from "../../src/app/styles/movieDetail.module.css";
 import { useTablet } from "@/app/hooks/mediaHooks";
@@ -17,12 +17,15 @@ import Image from "next/image";
 import BorderLine from "@/app/components/borderLine";
 import { motion } from "framer-motion";
 import { Check, Add } from "@mui/icons-material";
-import { getLocalUser } from "@/app/services/authService";
+import { getLanguage, getLocalUser } from "@/app/services/authService";
 import { useDispatch, useSelector } from "react-redux";
 import { setSnackbarMessage } from "@/app/actions/snackBarAction";
 import { ThreeDots } from "react-loader-spinner";
+import language from "@/app/languages/langIndex";
 
 function MovieDetail() {
+  const globalLanguage = getLanguage();
+  const languageText = language[globalLanguage || "en"];
   const router = useRouter();
   const isTablet = useTablet();
   const movieId = router?.query?.movieId && atob(router.query.movieId);
@@ -56,7 +59,7 @@ function MovieDetail() {
       });
   }, [movieId, trailerKey, movie, user]);
 
-  const language =
+  const languageKey =
     movie?.original_language === "en"
       ? "English"
       : movie?.original_language === "hi"
@@ -96,6 +99,7 @@ function MovieDetail() {
   return movie ? (
     <Box px={isTablet ? 4 : 9}>
       <Header tabsData={tabsData} />
+      {/* player-section */}
       <Box my={2}>
         {trailerKey ? (
           <ReactPlayer
@@ -110,13 +114,14 @@ function MovieDetail() {
           />
         ) : (
           <Typography align="center" className={classes.title}>
-            The video is not available for now...
+            {languageText?.THIS_VIDEO_IS_NOT_AVAILABLE}
           </Typography>
         )}
       </Box>
       <BorderLine />
 
       <Box my={2} className={classes.infoSection}>
+        {/* description-section */}
         <Box display="flex" alignItems="center">
           {!isTablet && (movie.poster_path || movie.backdrop_path) && (
             <div>
@@ -145,12 +150,12 @@ function MovieDetail() {
           </Box>
         </Box>
       </Box>
+      {/* genre-section */}
       <Box mb={2}>
         {movie?.genres?.length > 0 && (
           <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
             <Typography variant="h6" style={{ color: "rgb(202, 201, 201)" }}>
-              {" "}
-              Genre:
+              {languageText?.GENRE}
             </Typography>
             {movie?.genres.map((genre, i) => (
               <Button key={i} className={classes.genreBtn} variant="outlined">
@@ -160,6 +165,8 @@ function MovieDetail() {
           </Box>
         )}
       </Box>
+
+      {/* watch-list-button */}
       <Box mb={2.5}>
         {isAddedToWatchList ? (
           <Button
@@ -177,7 +184,7 @@ function MovieDetail() {
             className={classes.watchListBtn}
             variant="contained"
           >
-            {isLoading ? "" : "Remove from Watchlist"}
+            {isLoading ? "" : languageText?.REMOVE_FROM_WATCHLIST}
           </Button>
         ) : (
           <Button
@@ -195,36 +202,37 @@ function MovieDetail() {
             className={classes.watchListBtn}
             variant="contained"
           >
-                   {isLoading ? "" : "Add to Watchlist"}
-     
+            {isLoading ? "" : languageText?.ADD_TO_WATCHLIST}
+
           </Button>
         )}
       </Box>
-
       <BorderLine />
+
+      {/* details-section */}
       <Box my={2} style={{ color: "rgb(202, 201, 201)" }}>
         <Typography variant="h6" mb={1}>
-          {" "}
-          Details:
+          {languageText?.DETAILS}
         </Typography>
         <Box className={classes.desc}>
           <Typography>
-            Language: <span className={classes?.descItem}>{language}</span>
+            {languageText?.LANGUAGE} <span className={classes?.descItem}>{languageKey}</span>
           </Typography>
           {movie?.release_date && (
             <Typography>
-              Released On: {standardDate(movie?.release_date)}
+              {languageText.RELEASED_ON} {standardDate(movie?.release_date)}
             </Typography>
           )}
           {movie?.vote_count && (
-            <Typography>Votes: {movie?.vote_count}</Typography>
+            <Typography>{languageText?.VOTES} {movie?.vote_count}</Typography>
           )}
-          {movie?.budget && <Typography>Budget: {movie?.budget}</Typography>}
-          {movie?.revenue && <Typography>Revenue: {movie?.revenue}</Typography>}
+          {movie?.budget && <Typography>{languageText?.BUDGET} {movie?.budget}</Typography>}
+          {movie?.revenue && <Typography>{languageText?.REVENUE} {movie?.revenue}</Typography>}
         </Box>
       </Box>
-
       <BorderLine />
+
+      {/* production-companies-section */}
       <Box my={2} style={{ color: "rgb(202, 201, 201)" }}>
         <Typography variant="h6">Production Companies:</Typography>
         <Box className={classes.companiesBox}>

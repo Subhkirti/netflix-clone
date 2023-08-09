@@ -1,3 +1,6 @@
+import language from "../languages/langIndex";
+import { getLanguage } from "../services/authService";
+
 function hasOnlyDigits(value) {
   var regex = /^\d+$/;
   return regex.test(value);
@@ -13,14 +16,15 @@ function ellipSize(text, maxLength) {
     ? text.substr(0, maxLength) + "..."
     : text;
 }
-
+const globalLanguage = getLanguage();
+const languageText = language[globalLanguage || "en"];
 const tabsData = [
-  { title: "Home", url: "/" },
-  { title: "Top Rated", url: "/#topRated" },
-  { title: "Trendings", url: "/#trending" },
-  { title: "Originals", url: "/#originals" },
-  { title: "Recently Added", url: "/#recentlyAdded" },
-  { title: "My Watchlist", url: "/mylist" },
+  { title: languageText?.HOME, url: "/" },
+  { title: languageText?.TOP_RATED, url: "/#topRated" },
+  { title: languageText?.TRENDINGS, url: "/#trending" },
+  { title: languageText?.ORIGINALS, url: "/#originals" },
+  { title: languageText?.RECENTLY_ADDED, url: "/#recentlyAdded" },
+  { title: languageText?.MY_WATCHLIST, url: "/mylist" },
 ];
 
 function standardDate(date) {

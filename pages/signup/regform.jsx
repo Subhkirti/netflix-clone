@@ -26,11 +26,14 @@ import { fetchMovies } from "@/app/services/feedService";
 import { setSnackbarMessage } from "@/app/actions/snackBarAction";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "@/app/actions/userAction";
+import { ThreeDots } from "react-loader-spinner";
 
 function Regform() {
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user) || getLocalUser();
     const [showPassword, setShowPassword] = useState(false);
+    const [isLoading, setLoading] = useState(false);
+
     const [value, setValue] = useState({
         email: (user && user?.emailOrMobile) || "",
         password: "",
@@ -60,6 +63,7 @@ function Regform() {
     }
 
     async function handleOnSignIn() {
+        setLoading(true);
         if (value.email === "" && value.password === "") {
             setValue({
                 ...value,
@@ -101,6 +105,7 @@ function Regform() {
                     password: value.password,
                     movies: movies.movies_data,
                 });
+                res && setLoading(false)
                 if (res.status === "SUCCESS") {
                     if (res.isUserAlreadyExist) {
                         setValue({ ...value, showSignInModal: true });
@@ -215,7 +220,16 @@ function Regform() {
                         className={classes.nextButton}
                         onClick={handleOnSignIn}
                     >
-                        {languageText?.NEXT}
+                        {isLoading ? <ThreeDots
+                            height="30"
+                            width="40"
+                            radius="4"
+                            color="#fff"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClassName=""
+                            visible={true}
+                        /> : languageText?.NEXT}
                     </Button>
                 </Box>
             </Box>

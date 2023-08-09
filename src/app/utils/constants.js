@@ -1,6 +1,6 @@
 const tokenKey = "netflixjwttoken";
 const movieApiKey = "4f5ca790025ea4baf6f9d72988810577";
-const defaultMovieImg = "";
+
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.

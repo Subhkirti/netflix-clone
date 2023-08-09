@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 import { fetchMovies } from "@/app/services/feedService";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUser } from "@/app/actions/userAction";
+import { ThreeDots } from "react-loader-spinner";
 
 function Login() {
   const isUserLoggedIn = getIsUserLoggedIn()
@@ -39,6 +40,7 @@ function Login() {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [valueCategory, setValueCategory] = useState("");
+  const [isLoading, setLoading] = useState(false);
   const globalLanguage = getLanguage();
   const languageText = language[globalLanguage || "en"];
   const router = useRouter();
@@ -48,7 +50,6 @@ function Login() {
     if (isUserLoggedIn) {
       router.push("/");
     }
-
   }, [user]);
 
   function handleOnChange(type, e) {
@@ -76,6 +77,7 @@ function Login() {
   }
 
   async function handleOnSignIn() {
+    setLoading(true);
     if (value.email === "" || value.password === "") {
       setValue({
         email: value.email,
@@ -122,7 +124,7 @@ function Login() {
           password: value.password,
           movies: movies.movies_data,
         });
-
+        res && setLoading(false)
         if (res.status === "SUCCESS") {
           if (res.isUserAlreadyExist) {
             if (
@@ -140,12 +142,12 @@ function Login() {
             } else if (res.alreadyExistedUser.emailOrMobile !== value.email) {
               setValue({
                 ...value,
-                passwordErrormessage: "Email or Mobile no is wrong!",
+                passwordErrormessage: languageText?.EMAIL_OR_MOBILE_IS_WRONG,
               });
             } else if (res.alreadyExistedUser.password !== value.password) {
               setValue({
                 ...value,
-                passwordErrormessage: "Password is Wrong!",
+                passwordErrormessage: languageText?.PASSWORD_IS_WRONG,
               });
             }
           } else {
@@ -165,7 +167,6 @@ function Login() {
         <Box className={`${classes.flexBox} overlay`}>
           <Box className={classes.mainContainer}>
             <Typography className={classes.signInTitle}>
-              {" "}
               {languageText?.SIGN_IN}
             </Typography>
             {value.showNewAccountModal && (
@@ -225,6 +226,7 @@ function Login() {
               handleIconBtn={() => setShowPassword(!showPassword)}
             />
 
+            {/* error-message-section */}
             {value.showPasswordErrorMessage && (
               <Typography className={classes.errorMessage}>
                 {languageText?.PASSWORD_VALIDATION_TEXT}
@@ -241,13 +243,22 @@ function Login() {
               variant="contained"
               className={classes.signInBtn}
             >
-              {languageText?.SIGN_IN}
+              {isLoading ? <ThreeDots
+                height="30"
+                width="40"
+                radius="4"
+                color="#fff"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClassName=""
+                visible={true}
+              /> : languageText?.SIGN_IN}
             </Button>
 
+            {/* privacy-policy-section */}
             <Typography className={classes.newToText}>
               {languageText.NEW_TO_NETFLIX}{" "}
               <Link href="/" className={classes.signUpText}>
-                {" "}
                 {languageText.SIGN_UP_NOW}{" "}
               </Link>
             </Typography>
@@ -259,11 +270,12 @@ function Login() {
                   onClick={() => setHideLearnMore(true)}
                   className={classes.learnMoreText}
                 >
-                  {" "}
                   {languageText.LEARN_MORE}{" "}
                 </span>
               )}
             </Typography>
+
+            {/* learn-more-section */}
             {hideLeanMore && (
               <Typography variant="caption" className={classes.captchaText}>
                 {languageText.THE_INFORMATION_COLLECTED}{" "}
