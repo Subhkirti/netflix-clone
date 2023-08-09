@@ -1,5 +1,5 @@
-import React, { useEffect,useState } from "react";
-import { AppBar, Box, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { AppBar, Box, Drawer, Typography } from "@mui/material";
 import logo from "../images/logo.png";
 import Image from "next/image";
 import dynamic from "next/dynamic";
@@ -9,7 +9,7 @@ import { getLanguage, getIsUserLoggedIn } from "../services/authService";
 import language from "../languages/langIndex";
 import { usePathname } from "next/navigation";
 import SignOutButton from "./signOutButton";
-import { Menu } from "@mui/icons-material";
+import { Menu,Close } from "@mui/icons-material";
 
 function Header({ transparent, tabsData, signUp }) {
     const isMobile = useMobile();
@@ -19,14 +19,41 @@ function Header({ transparent, tabsData, signUp }) {
     const pathname = usePathname();
     const isUserLoggedIn = getIsUserLoggedIn();
     const isFeed = pathname === "/" && isUserLoggedIn;
+    const [isOpen, setOpen] = useState(false);
     const [currentHash, setCurrentHash] = useState(document?.location.hash);
+    const openDrawerPosition = "left";
     useEffect(() => {
         const handleHashChange = () => {
             setCurrentHash(document.location.hash);
         };
         window.addEventListener("hashchange", handleHashChange);
-    }, [])
+    }, []);
     const isPath = currentHash ? "/" + currentHash : pathname;
+
+    function NavigationMenu() {
+        return (
+            <Box className={isTablet ? "mobileMenu" : "displayFlex"} width="600px">
+                {tabsData.map((tab, i) => {
+                    return (
+                        <a
+                            href={tab.url}
+                            style={{ color: "white", textDecoration: "none" }}
+                            key={i}
+                            onClick={() => setOpen(false)}
+                        >
+                            <Typography
+                                className={
+                                    isPath === tab.url ? "underline" : "animatedUnderLine"
+                                }
+                            >
+                                {tab.title}
+                            </Typography>
+                        </a>
+                    );
+                })}
+            </Box>
+        );
+    }
 
     return (
         <React.Fragment>
@@ -56,7 +83,37 @@ function Header({ transparent, tabsData, signUp }) {
                         alignItems: "center",
                     }}
                 >
-                    {isFeed && isTablet && <Menu />}
+                    {isUserLoggedIn && isTablet && (
+                        <>
+                            <Menu onClick={() => setOpen(true)} />
+                        
+                            <Drawer
+                                anchor={openDrawerPosition}
+                                open={isOpen}
+                                onClose={() => setOpen(false)}
+                                classes={{
+                                    paper: "paperDrawer"
+                                }}
+                            >
+                             <Box m={2} className="displayFlex" 
+                             >
+                                    <Image
+                                style={{ marginTop: "6px" }}
+                                src={logo}
+                                alt=""
+                                width={100}
+                                height={30}
+                                priority="high"
+                            />
+
+                            <Close style={{color:"white"}}  onClick={() => setOpen(false)}/>
+                            </Box>
+                                {NavigationMenu()}
+                            </Drawer>
+
+                        </>
+                    )}
+
                     <Link href="/">
                         <Image
                             style={{ marginTop: "6px" }}
@@ -67,27 +124,7 @@ function Header({ transparent, tabsData, signUp }) {
                             priority="high"
                         />
                     </Link>
-                    {!isTablet && tabsData && (
-                        <Box className="displayFlex" width="600px">
-                            {tabsData.map((tab, i) => {
-                                return (
-                                    <a
-                                        href={tab.url}
-                                        style={{ color: "white", textDecoration: "none" }}
-                                        key={i}
-                                    >
-                                        <Typography
-                                            className={
-                                                isPath === tab.url ? "underline" : "animatedUnderLine"
-                                            }
-                                        >
-                                            {tab.title}
-                                        </Typography>
-                                    </a>
-                                );
-                            })}
-                        </Box>
-                    )}
+                    {!isTablet && tabsData && NavigationMenu()}
                 </Box>
                 {tabsData && isUserLoggedIn && <SignOutButton />}
 

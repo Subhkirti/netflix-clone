@@ -66,8 +66,8 @@ function MyList() {
         ) : watchList?.length > 0 ? (
           watchList.map((item, index) => {
             return (
-              <Box onClick={() => router.push(movieDetailUrl(item?.id))} key={index} className={classes.itemWrapper}>
-                <div>
+              <Box key={index} className={classes.itemWrapper}>
+                <Box onClick={() => router.push(movieDetailUrl(item?.id))} >
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${item.backdrop_path || item.poster_path
                       }`}
@@ -76,13 +76,13 @@ function MyList() {
                     height={isTablet ? 100 : 130}
                     className={classes.itemImage}
                   ></Image>
-                </div>
+                </Box>
                 <div className={classes.description}>
                   <Box display='flex' justifyContent='space-between' alignItems='center'>
                     <Typography className={classes.descTitle}>
                       {item?.title || item?.original_title}
                     </Typography>
-                    <Close onClick={() => handleRemoveFromWatchList(item, index)} />
+                    <Close className={classes.crossIcon} onClick={() => handleRemoveFromWatchList(item, index)} />
                   </Box>
 
                   <Typography className={classes.descSubTitle}>

@@ -15,7 +15,6 @@
     #c11e2969,
     rgba(0, 0, 0, 0.479)
   );
-  cursor: pointer;
   transition: background-color 3s ease;
 }
 
@@ -30,8 +29,15 @@
 }
 .itemImage {
   border-radius: 3px;
+  cursor:pointer;
 }
-
+.crossIcon {
+  font-size: 13px;
+  padding: 3px;
+  border-radius: 50%;
+  border: 1px solid;
+  cursor:pointer;
+}
 @media (max-width: 800px) {
   .descTitle {
     font-size: 20px;
