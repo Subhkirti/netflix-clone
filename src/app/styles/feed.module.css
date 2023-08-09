@@ -18,6 +18,7 @@
   position: relative;
   z-index: -1;
   width: 205px;
+  cursor:pointer;
 }
 
 .icons {

@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { movieApiKey } from "@/app/utils/constants";
-import { fetchMovieDetail } from "@/app/services/movieService";
+import {
+  addToWatchList,
+  fetchMovieDetail,
+  removeFromWatchList,
+} from "@/app/services/movieService";
 import ReactPlayer from "react-player";
 import Header from "@/app/components/header";
 import { standardDate, tabsData } from "@/app/utils/commonUtil";
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import { Avatar, Box, Button, Typography, CircularProgress } from "@mui/material";
 import Loader from "@/app/loader";
 import classes from "../../src/app/styles/movieDetail.module.css";
 import { useTablet } from "@/app/hooks/mediaHooks";
 import Image from "next/image";
 import BorderLine from "@/app/components/borderLine";
 import { motion } from "framer-motion";
+import { Check, Add } from "@mui/icons-material";
+import { getLocalUser } from "@/app/services/authService";
+import { useDispatch, useSelector } from "react-redux";
+import { setSnackbarMessage } from "@/app/actions/snackBarAction";
+import { ThreeDots } from "react-loader-spinner";
 
 function MovieDetail() {
   const router = useRouter();
   const isTablet = useTablet();
   const movieId = router?.query?.movieId && atob(router.query.movieId);
   const [movie, setMovie] = useState(null);
-  console.log('movie:', movie)
+  const user = useSelector((state) => state.user) || getLocalUser();
+  const dispatch = useDispatch();
   const [trailerKey, setTrailerKey] = useState(null);
+  const [isAddedToWatchList, setAddedToWatchList] = useState(false);
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     async function fetchTrailer() {
@@ -35,9 +47,51 @@ function MovieDetail() {
       }
     }
     movieId && !trailerKey && fetchTrailer();
-  }, [movieId, trailerKey]);
 
-  const language = movie?.original_language === "en" ? "English" : movie?.original_language === "hi" ? "Hindi" : movie?.original_language;
+    movie &&
+      user &&
+      user?.watchList?.length > 0 &&
+      user?.watchList.map((item) => {
+        item?.id === movie?.id && setAddedToWatchList(true);
+      });
+  }, [movieId, trailerKey, movie, user]);
+
+  const language =
+    movie?.original_language === "en"
+      ? "English"
+      : movie?.original_language === "hi"
+        ? "Hindi"
+        : movie?.original_language;
+
+  async function handleWatchListBtn(addToList) {
+    setLoading(true)
+
+    const reqBody = {
+      userId: user && user?.userId,
+      watchList: movie,
+    };
+    if (addToList) {
+      const data = await addToWatchList(reqBody);
+      data && setLoading(false)
+      if (data.status === "SUCCESS") {
+        setAddedToWatchList(addToList);
+      } else {
+        dispatch(
+          setSnackbarMessage(res?.error_message || "Try again after sometime.")
+        );
+      }
+    } else {
+      const data = await removeFromWatchList(reqBody);
+      data && setLoading(false)
+      if (data.status === "SUCCESS") {
+        setAddedToWatchList(addToList);
+      } else {
+        dispatch(
+          setSnackbarMessage(res?.error_message || "Try again after sometime.")
+        );
+      }
+    }
+  }
 
   return movie ? (
     <Box px={isTablet ? 4 : 9}>
@@ -54,9 +108,11 @@ function MovieDetail() {
             playing={false}
             controls={true}
           />
-        )
-          :
-          <Typography align="center" className={classes.title}>The video is not available for now...</Typography>}
+        ) : (
+          <Typography align="center" className={classes.title}>
+            The video is not available for now...
+          </Typography>
+        )}
       </Box>
       <BorderLine />
 
@@ -74,7 +130,11 @@ function MovieDetail() {
               ></Image>
             </div>
           )}
-          <Box ml={isTablet || (!movie.poster_path && !movie.backdrop_path)? 0 : 2}>
+          <Box
+            ml={
+              isTablet || (!movie.poster_path && !movie.backdrop_path) ? 0 : 2
+            }
+          >
             <Typography className={classes.title}>
               {movie?.title || movie?.original_title}
             </Typography>
@@ -88,7 +148,10 @@ function MovieDetail() {
       <Box mb={2}>
         {movie?.genres?.length > 0 && (
           <Box display="flex" alignItems="center" gap={2} flexWrap="wrap">
-            <Typography variant="h6" style={{ color: "rgb(202, 201, 201)" }}> Genre:</Typography>
+            <Typography variant="h6" style={{ color: "rgb(202, 201, 201)" }}>
+              {" "}
+              Genre:
+            </Typography>
             {movie?.genres.map((genre, i) => (
               <Button key={i} className={classes.genreBtn} variant="outlined">
                 {genre?.name}
@@ -97,35 +160,67 @@ function MovieDetail() {
           </Box>
         )}
       </Box>
+      <Box mb={2.5}>
+        {isAddedToWatchList ? (
+          <Button
+            onClick={() => handleWatchListBtn(false)}
+            startIcon={isLoading ? <ThreeDots
+              height="30"
+              width="40"
+              radius="4"
+              color="#fff"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            /> : <Check />}
+            className={classes.watchListBtn}
+            variant="contained"
+          >
+            {isLoading ? "" : "Remove from Watchlist"}
+          </Button>
+        ) : (
+          <Button
+            onClick={() => handleWatchListBtn(true)}
+            startIcon={isLoading ? <ThreeDots
+              height="30"
+              width="40"
+              radius="4"
+              color="#fff"
+              ariaLabel="three-dots-loading"
+              wrapperStyle={{}}
+              wrapperClassName=""
+              visible={true}
+            /> : <Add />}
+            className={classes.watchListBtn}
+            variant="contained"
+          >
+                   {isLoading ? "" : "Add to Watchlist"}
+     
+          </Button>
+        )}
+      </Box>
 
       <BorderLine />
       <Box my={2} style={{ color: "rgb(202, 201, 201)" }}>
-        <Typography variant="h6" mb={1}> Details:</Typography>
+        <Typography variant="h6" mb={1}>
+          {" "}
+          Details:
+        </Typography>
         <Box className={classes.desc}>
           <Typography>
-            Language:{" "}
-            <span className={classes?.descItem}>
-              {language}
-            </span>
+            Language: <span className={classes?.descItem}>{language}</span>
           </Typography>
-          {movie?.release_date &&
+          {movie?.release_date && (
             <Typography>
-              Released On:{" "}
-              {standardDate(movie?.release_date)}
-            </Typography>}
-          {movie?.vote_count &&
-            <Typography>
-              Votes:{" "}
-              {movie?.vote_count}
-            </Typography>}
-          {movie?.budget &&
-            <Typography>
-              Budget:{" "}{movie?.budget}
-            </Typography>}
-          {movie?.revenue &&
-            <Typography>
-              Revenue:{" "} {movie?.revenue}
-            </Typography>}
+              Released On: {standardDate(movie?.release_date)}
+            </Typography>
+          )}
+          {movie?.vote_count && (
+            <Typography>Votes: {movie?.vote_count}</Typography>
+          )}
+          {movie?.budget && <Typography>Budget: {movie?.budget}</Typography>}
+          {movie?.revenue && <Typography>Revenue: {movie?.revenue}</Typography>}
         </Box>
       </Box>
 
@@ -143,9 +238,7 @@ function MovieDetail() {
                 >
                   <Avatar
                     style={{
-                      backgroundColor: company?.logo_path
-                        ? "white"
-                        : "#414141",
+                      backgroundColor: company?.logo_path ? "white" : "#414141",
                     }}
                     className={classes.avatar}
                     src={`https://image.tmdb.org/t/p/w500${company?.logo_path}`}
@@ -160,7 +253,7 @@ function MovieDetail() {
             ))}
         </Box>
       </Box>
-    </Box >
+    </Box>
   ) : (
     <Loader />
   );

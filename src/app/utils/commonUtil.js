@@ -20,7 +20,7 @@ const tabsData = [
   { title: "Trendings", url: "/#trending" },
   { title: "Originals", url: "/#originals" },
   { title: "Recently Added", url: "/#recentlyAdded" },
-  { title: "My List", url: "/mylist" },
+  { title: "My Watchlist", url: "/mylist" },
 ];
 
 function standardDate(date) {

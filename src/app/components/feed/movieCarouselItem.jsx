@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Add,
   Check,
@@ -17,6 +17,7 @@ import { setSnackbarMessage } from "@/app/actions/snackBarAction";
 import { useDispatch, useSelector } from "react-redux";
 import { getLocalUser } from "@/app/services/authService";
 import { useRouter } from "next/navigation";
+import { ThreeDots } from "react-loader-spinner";
 
 function MovieCarouselItem({
   thumbnail,
@@ -35,15 +36,18 @@ function MovieCarouselItem({
   const user = useSelector((state) => state.user) || getLocalUser();
   const dispatch = useDispatch();
   const router = useRouter()
+  const [isLoading, setLoading] = useState(false)
+
   async function handleWatchListBtn(thumbnail, movieId, addToList) {
+    setLoading(true)
     const reqBody = {
       userId: user && user?.userId,
       watchList: thumbnail,
     };
     if (addToList) {
       const data = await addToWatchList(reqBody);
+      data && setLoading(false)
       if (data.status === "SUCCESS") {
-
         setWatchListMovieIds((prev) => ({
           addedIds: prev.addedIds ? [...prev.addedIds, movieId] : [movieId],
           removedIds: prev.removedIds,
@@ -55,6 +59,7 @@ function MovieCarouselItem({
       }
     } else {
       const data = await removeFromWatchList(reqBody);
+      data && setLoading(false)
       if (data.status === "SUCCESS") {
         setWatchListMovieIds((prev) => ({
           addedIds: prev.addedIds,
@@ -69,7 +74,7 @@ function MovieCarouselItem({
   }
 
   return (
-    <div
+    <Box
       onMouseOver={() =>
         setCurrentIndex && setCurrentIndex(currentCarouselIndex)
       }
@@ -77,35 +82,54 @@ function MovieCarouselItem({
       key={index}
       className={classes.thumbnailItem}
     >
-      <Image
-        className={classes.thumbnailImage}
-        src={`https://image.tmdb.org/t/p/w500${thumbnail?.poster_path || thumbnail?.backdrop_path
-          }`}
-        alt=""
-        width={width}
-        height={height}
-      ></Image>
+
+      <Box onClick={() => router.push(movieDetailUrl(thumbnail?.id))} className="cursorPointer">
+        <Image
+          className={classes.thumbnailImage}
+          src={`https://image.tmdb.org/t/p/w500${thumbnail?.poster_path || thumbnail?.backdrop_path
+            }`}
+          alt=""
+          width={width}
+          height={height}
+
+        ></Image>
+      </Box>
       {!isMobile && showDescriptionCard && (
         <Box className={classes.descriptionBox}>
           <Box className={classes.descriptionIcons}>
             <PlayCircleFilled onClick={() => router.push(movieDetailUrl(thumbnail?.id))} className={classes.playIcon} />
-            {(!watchListMovieIds.removedIds.includes(thumbnail?.id) &&
-              watchListMovieIds.addedIds.includes(thumbnail?.id)) ||
-              (thumbnail?.addedToWatchList && !watchListMovieIds.removedIds.includes(thumbnail?.id)) ? (
-              <Check
-                className={classes.icon}
-                onClick={() =>
-                  handleWatchListBtn(thumbnail, thumbnail?.id, false)
-                }
-              />
-            ) : (
-              <Add
-                className={classes.icon}
-                onClick={() =>
-                  handleWatchListBtn(thumbnail, thumbnail?.id, true)
-                }
-              />
-            )}
+            {
+              isLoading ?
+                <Box className={classes.icon}>
+                  <ThreeDots
+                    height="20"
+                    width="20"
+                    radius="4"
+                    color="#fff"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=''
+                    visible={true}
+                  />
+                </Box> :
+
+                (!watchListMovieIds.removedIds.includes(thumbnail?.id) &&
+                  watchListMovieIds.addedIds.includes(thumbnail?.id)) ||
+                  (thumbnail?.addedToWatchList && !watchListMovieIds.removedIds.includes(thumbnail?.id)) ? (
+                  <Check
+                    className={classes.icon}
+                    onClick={() =>
+                      handleWatchListBtn(thumbnail, thumbnail?.id, false)
+                    }
+                  />
+                ) : (
+                  <Add
+                    className={classes.icon}
+                    onClick={() =>
+                      handleWatchListBtn(thumbnail, thumbnail?.id, true)
+                    }
+                  />
+                )}
 
           </Box>
           <Typography className={classes.descTitle} mt={1}>
@@ -117,7 +141,7 @@ function MovieCarouselItem({
           </Typography>
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
 

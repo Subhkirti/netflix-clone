@@ -14,7 +14,16 @@
   font-weight: 400;
   text-align: justify;
 }
-
+.watchListBtn {
+  background-color:#414141;
+  border-radius: 20px;
+  font-size:17px;
+  width:100%;
+}
+.watchListBtn:hover {
+  background-color:#414141;
+  border-radius: 20px;
+}
 .genreBtn {
   color: rgb(184, 184, 184);
   border-radius: 20px;
