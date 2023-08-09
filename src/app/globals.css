@@ -27,7 +27,7 @@
   width: 100%;
   transform: scaleX(0);
   height: 2px;
-  bottom: 0;
+  bottom: -1px;
   left: 0;
   background-color: white;
   transform-origin: bottom right;

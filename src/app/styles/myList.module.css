@@ -56,6 +56,9 @@
     );
   }
 }
+.description {
+  width: 100%;
+}
 @media (max-width: 340px) {
   .itemWrapper {
     flex-direction: column;
