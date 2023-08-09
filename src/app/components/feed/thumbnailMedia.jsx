@@ -21,7 +21,6 @@ function ThumbnailMedia({ homeBanner }) {
 
         {!isMobile && <Box className={classes.bannerDescription}>
           <Typography className={classes.bannerTitle}>{homeBanner?.title || homeBanner?.original_title}</Typography >
-          {homeBanner?.id}
           <Typography className={classes.bannerSubTitle}>{ellipSize(homeBanner?.overview, isTablet ? 250 : 400)}</Typography>
           <Box mt={2}>
             <Button onClick={() => router.push(movieDetailUrl(homeBanner?.id))} className={classes.bannerPlayIcon} variant='contained' startIcon={<PlayArrow style={{ fontSize: "30px" }} />}>Play</Button>
