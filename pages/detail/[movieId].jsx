@@ -98,7 +98,7 @@ function MovieDetail() {
 
   return movie ? (
     <Box px={isTablet ? 4 : 9}>
-      <Header tabsData={tabsData} />
+      <Header tabsData={tabsData} showBack={true} />
       {/* player-section */}
       <Box my={2}>
         {trailerKey ? (

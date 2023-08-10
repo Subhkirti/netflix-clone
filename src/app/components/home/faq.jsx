@@ -26,8 +26,6 @@ function Faq() {
             <Accordion className={`${classes.accordion} faq-accordion`} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
               <AccordionSummary
                 expandIcon={expanded === `panel${index}` ? <Close className={classes.accordionIcon} /> : <Add className={classes.accordionIcon} />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
               >
                 <Typography className='subTitle' sx={{ width: '80%', flexShrink: 0, textAlign: "left !important" }}>
                   {faq.question}

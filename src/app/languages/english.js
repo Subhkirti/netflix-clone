@@ -87,9 +87,7 @@ const en = {
   NETFLIX_IS_PERSONALIZED:
     "Netflix is personalised for you. Create a password to watch on any device at any time.",
   NEXT: "Next",
-  CREATE_A_PASSWORD: "Create a password to start your membership",
-  JUST_FEW_MORE_PAPERWORK:
-    "Just a few more steps and you're done! We hate paperwork, too.",
+  CREATE_A_PASSWORD: "Create a password to start your journey",
   SIGN_OUT: "Sign Out",
   THIS_VIDEO_IS_NOT_AVAILABLE: "The video is not available for now.",
   GENRE: "Genre: ",

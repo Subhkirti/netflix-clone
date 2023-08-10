@@ -50,6 +50,9 @@ function Regform() {
         if (isUserLoggedIn) {
             router.push("/");
         }
+        if (value?.passwordErrormessage || value?.emailErrorMessage || value?.showSignInModal) {
+            setLoading(false)
+        }
     }, [user]);
 
     function handleOnChange(type, e) {
@@ -108,7 +111,7 @@ function Regform() {
                 res && setLoading(false)
                 if (res.status === "SUCCESS") {
                     if (res.isUserAlreadyExist) {
-                        setValue({ ...value, showSignInModal: true });
+                        setValue({ ...value, showSignInModal: true,passwordErrormessage:"", emailErrorMessage:"" });
                     } else {
                         const updatedUser = { ...res.userObject };
                         setIsUserLoggedIn(true)
@@ -117,7 +120,7 @@ function Regform() {
                     }
                 } else {
                     if (res.code === 11000) {
-                        setValue({ ...value, showSignInModal: true });
+                        setValue({ ...value, showSignInModal: true,passwordErrormessage:"", emailErrorMessage:"" });
                     } else {
                         setValue({ ...value, passwordErrormessage: res.error_message });
                     }
@@ -162,9 +165,6 @@ function Regform() {
                     </Typography>
                     <Typography className={classes.settingAccount}>
                         {languageText?.CREATE_A_PASSWORD}{" "}
-                    </Typography>
-                    <Typography className={classes.netflixPersonalised}>
-                        {languageText?.JUST_FEW_MORE_PAPERWORK}{" "}
                     </Typography>
 
                     <Box className="displayFlexColumn" width="100%" gap={1} mt={3}>
