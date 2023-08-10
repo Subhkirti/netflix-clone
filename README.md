@@ -8,7 +8,10 @@
 4. Languages Based Site: English, Hindi
 5. Watchlist Option: Where we can store the movies to watch them later.
 
-## 🍿 How site looks like
+## 🌡 Performance: 
+<img width="1440" alt="Screenshot 2023-08-10 at 8 06 37 PM" src="https://github.com/Subhkirti/netflix-clone/assets/89776606/aa38835e-aacf-475c-84af-2c0d2022a9c7">
+
+## 🍿 Overview:
 <img width="1436" alt="Screenshot 2023-08-10 at 7 35 53 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/51da6728-8755-4f4a-91b0-903545cb3a66">
 <hr/>
 <img width="1436" alt="Screenshot 2023-08-10 at 7 36 54 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/5a360c31-6c4f-4dd5-ab18-fce362d54c4b">
