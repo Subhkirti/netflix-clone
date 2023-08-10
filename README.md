@@ -1,5 +1,5 @@
-## NETFLIX - CLONE - VIA -NEXTJS
-Link: https://netflix-clone-shubhkirti.vercel.app/
+## 🎥 NETFLIX - CLONE - VIA -NEXTJS
+🔗 https://netflix-clone-shubhkirti.vercel.app/
 
 1. Authentication: Login, SignIn, SignOut
 2. MongoDB: For Storing users, movie, watchlist data
@@ -7,7 +7,7 @@ Link: https://netflix-clone-shubhkirti.vercel.app/
 4. Languages Based Site: English, Hindi
 5. Watchlist Option: Where we can store movies to watch later.
 
-## How site looks like
+## 🍿 How site looks like
 <img width="1436" alt="Screenshot 2023-08-10 at 7 35 53 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/51da6728-8755-4f4a-91b0-903545cb3a66">
 <img width="1436" alt="Screenshot 2023-08-10 at 7 36 54 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/5a360c31-6c4f-4dd5-ab18-fce362d54c4b">
 <img width="1431" alt="Screenshot 2023-08-10 at 7 38 50 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/e02a9b78-a559-4bf9-9ade-74e20b971bed">
