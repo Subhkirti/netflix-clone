@@ -14,8 +14,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:200px;
-  gap:12px;
+  width: 200px;
+  gap: 12px;
 }
 .paperDrawer {
   background-color: rgb(31 30 30);
@@ -32,7 +32,7 @@
 }
 
 .animatedUnderLine:after {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   transform: scaleX(0);
@@ -168,20 +168,13 @@ body {
   inset: 0px;
   margin: 0px auto;
 }
-.faq-accordion
-  .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded {
-  border-bottom: 1px solid black;
-  padding: 0px 15px;
-}
-.faq-accordion
-  .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root.Mui-expanded:hover {
-  background-color: rgb(78, 78, 78);
-}
-.faq-accordion .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root:hover {
-  background-color: rgb(78, 78, 78);
-}
-.faq-accordion .css-sh22l5-MuiButtonBase-root-MuiAccordionSummary-root {
+
+.faq-accordion .MuiButtonBase-root {
   padding: 12px;
+  border-bottom: 1px solid black;
+}
+.faq-accordion .MuiButtonBase-root:hover {
+  background-color: rgb(78, 78, 78);
 }
 
 /* Media-Queries */
