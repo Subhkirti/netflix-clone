@@ -9,7 +9,7 @@
 5. Watchlist Option: Where we can store the movies to watch them later.
 
 ## 🌡 Performance: 
-<img width="1440" alt="Screenshot 2023-08-10 at 8 06 37 PM" src="https://github.com/Subhkirti/netflix-clone/assets/89776606/aa38835e-aacf-475c-84af-2c0d2022a9c7">
+<img width="1438" alt="Screenshot 2023-08-10 at 8 10 45 PM" src="https://github.com/Subhkirti/netflix-clone/assets/89776606/c8e638de-545f-4110-bfb5-55f4ba469a5e">
 
 ## 🍿 Overview:
 <img width="1436" alt="Screenshot 2023-08-10 at 7 35 53 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/51da6728-8755-4f4a-91b0-903545cb3a66">
