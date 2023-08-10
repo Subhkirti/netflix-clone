@@ -13,6 +13,8 @@
 <hr/>
 <img width="1436" alt="Screenshot 2023-08-10 at 7 36 54 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/5a360c31-6c4f-4dd5-ab18-fce362d54c4b">
 <hr/>
+<img width="1434" alt="Screenshot 2023-08-10 at 7 37 34 PM" src="https://github.com/Subhkirti/netflix-clone/assets/89776606/d2f64f95-f327-4173-b179-984d812a40a7">
+<hr/>
 <img width="1431" alt="Screenshot 2023-08-10 at 7 38 50 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/e02a9b78-a559-4bf9-9ade-74e20b971bed">
 <hr/>
 <img width="1430" alt="Screenshot 2023-08-10 at 7 39 04 PM" src="https://github.com/Subhkirti/netflix-clone/assets/105411701/c20a51af-8d61-4582-a03c-9e88b41e7809">
