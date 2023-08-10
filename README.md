@@ -1,6 +1,7 @@
 ## 🎥 NETFLIX - CLONE - VIA -NEXTJS
 🔗 https://netflix-clone-shubhkirti.vercel.app/
 
+## 📌 Features:
 1. Authentication: Login, SignIn, SignOut
 2. MongoDB: For Storing users, movie, watchlist data
 3. Responsiveness: 100%
