@@ -1,5 +1,6 @@
 ## 🎥 NETFLIX - CLONE - VIA -NEXTJS
 🔗 https://netflix-clone-shubhkirti.vercel.app/
+🔗 https://poetic-longma-360968.netlify.app/
 
 ## 📌 Features:
 1. Authentication: Login, SignIn, SignOut
