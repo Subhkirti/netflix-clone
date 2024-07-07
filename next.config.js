@@ -10,6 +10,16 @@ const nextConfig = {
       "occ-0-2991-2164.1.nflxso.net"
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/(.*)',
+        destination: 'https://netflix-clone-shubhkirti.vercel.app/$1',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
+
